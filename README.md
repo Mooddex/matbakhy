@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Matbakhy 
 
-## Getting Started
+**Matbakhy** is a full-stack marketplace platform where kitchen makers **upload their kitchen designs**. The platform allows customers to browse these designs and connect with makers — turning inspiration into real-life kitchen builds.
 
-First, run the development server:
+<!-- 🔗 **Live Link:** https://matbakhy.netlify.app/ -->
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Matbakhy Screenshot](https://res.cloudinary.com/deq0w5tnr/image/upload/v1752613435/2025-07-16-000244-create-next-app-screenclip_epkkci.jpg)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It's Made:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Tech used:** Next.js, TypeScript 
 
-## Learn More
+Built using **Next.js** with **TypeScript** 
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Optimizations
 
-## Deploy on Vercel
+- **Server-side rendering (SSR)** for SEO-friendly and fast initial load.
+- **User isolation** – each maker can only manage their own profile and designs.
+- Ready for **image hosting integration** (e.g., Cloudinary or Firebase).
+- Modular folder structure for clean scalability (pages, components, models, etc.).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Lessons Learned
+
+This project helped me learn:
+- How to build a **full-stack marketplace** with Next.js
+- Managing complex data structures with MongoDB and Mongoose
+- Implementing **authentication** and protected routes
+- Organizing and designing a system where users can **submit content**
+- Creating a **real-world product flow** from user onboarding to public showcasing
+
+---
+
+## Examples:
+Here are a few more frontend/full-stack projects in my portfolio:
+
+**My Office (Full Stack for Lawyers):** https://github.com/Mooddex/my-office  
+**Beautello Salon:** https://github.com/Mooddex/Beautello-Salon  
+**Timeline Page:** https://github.com/Mooddex/timeline-page  
+**Profile Website:** https://github.com/Mooddex/ProfileWebsite
