@@ -29,8 +29,8 @@ const Nav = () => {
         </div>
         {/* Sign up and login */}
         <div className=" flex gap-2.5 justify-around">
-            <Link href="/login" className="text-white text-lg hover:text-gray-300 transition-colors">
-            Log In
+            <Link href="/signin" className="text-white text-lg hover:text-gray-300 transition-colors">
+            Sign In
           </Link>
           <Link href="/signup">
             <button className="bg-white text-violet-900 font-semibold px-4 py-1 rounded hover:bg-cyan-500 transition-colors">

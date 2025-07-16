@@ -25,8 +25,6 @@ const UserPage = () => {
 
       {/* Kitchens Section */}
       <section>
-        <h2 className="text-xl font-bold mb-2 text-violet-800"></h2>
-        <p className="text-gray-600 italic mb-6">Explore all the kitchens posted by this designer.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <KitchenCard

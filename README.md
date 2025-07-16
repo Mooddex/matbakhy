@@ -2,7 +2,7 @@
 
 **Matbakhy** is a full-stack marketplace platform where kitchen makers **upload their kitchen designs**. The platform allows customers to browse these designs and connect with makers — turning inspiration into real-life kitchen builds.
 
-🔗 **Live Link:** https://matbakhy.netlify.app/
+<!-- 🔗 **Live Link:** https://matbakhy.netlify.app/ -->
 
 ![Matbakhy Screenshot](https://res.cloudinary.com/deq0w5tnr/image/upload/v1752613435/2025-07-16-000244-create-next-app-screenclip_epkkci.jpg)
 
