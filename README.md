@@ -10,9 +10,9 @@
 
 ## How It's Made:
 
-**Tech used:** Next.js, Tailwind CSS
 
-Built using **Next.js** with **TypeScript** 
+
+Built using **Next.js** with **Tailwind CSS**
 
 
 ---
