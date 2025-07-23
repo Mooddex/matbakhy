@@ -1,28 +1,64 @@
 import KitchenCard from "@/components/KitchenCard";
-import kitchens from "@/data/Kitchens";
+import Image from "next/image";
+import homeBG from '@/img/homeBG.png';
 
-export default function Dashboard() {
+export default async function AllKitchens() {
+  const getKitchens = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/kitchens", {
+        cache: "no-store",
+      });
+
+      if (!res.ok) throw new Error("Failed to fetch kitchens");
+      return res.json();
+    } catch (error) {
+      console.error("❌ Error loading kitchens:", error);
+      return null;
+    }
+  };
+
+  const data = await getKitchens();
+  if (!data?.kitchens?.length) return <p className="text-center mt-20 text-gray-600">No kitchens found.</p>;
+
   return (
-    <div className="px-6 py-12 bg-gray-50 min-h-screen text-gray-900">
-      {/* Hero */}
-      <section className="text-center mb-12">
-        <h1 className="text-4xl font-extrabold text-violet-900 mb-3">
-          Find Your <span className="text-violet-600">Perfect Fit</span>
-        </h1>
-        <p className="text-gray-600 max-w-xl mx-auto">
-          Browse beautiful kitchen styles made by trusted professionals around Egypt.
-        </p>
-      </section>
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <Image
+        src={homeBG}
+        alt="Background"
+        fill
+        style={{ objectFit: 'cover' }}
+        className="absolute inset-0 -z-10 brightness-90"
+        priority
+      />
 
-      {/* Cards Grid */}
-      <section className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-violet-800">Kitchens</h2>
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {kitchens.slice(0,6).map((kitchen) => (
-            <KitchenCard key={kitchen.id} {...kitchen} />
+      {/* Optional: A light gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-white/40 -z-10" />
+
+      {/* Main Content */}
+      <div className="relative z-10 px-6 pt-32 pb-20 text-gray-900">
+        {/* Hero */}
+        <section className="text-center mb-16">
+          <h1 className="text-5xl font-extrabold text-violet-900 drop-shadow-sm mb-4">
+            Find Your <span className="text-violet-600">Perfect Fit</span>
+          </h1>
+        </section>
+
+        {/* Kitchens Grid */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {data.kitchens.map((kitchen: any) => (
+            <KitchenCard
+              key={kitchen._id}
+              userName={kitchen.userName}
+              maker={kitchen.maker}
+              price={kitchen.price}
+              description={kitchen.description}
+              location={kitchen.location}
+              imageUrl={kitchen.imageUrl}
+            />
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

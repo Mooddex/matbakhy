@@ -1,9 +1,9 @@
 export  interface KitchenCardProps {
-  id: string;
   userName: string;
-  imgUrl: string;
-  makerName: string;
+  maker: string;
+  price: number; // changed from string to number
   description: string;
   location: string;
-  price: string;
+  imageUrl: string;
+
 }
