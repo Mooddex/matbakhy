@@ -1,46 +1,95 @@
-# Matbakhy 
+# Matbakhy
 
-**Matbakhy** is a full-stack marketplace platform where kitchen makers **upload their kitchen designs**. The platform allows customers to browse these designs and connect with makers — turning inspiration into real-life kitchen builds.
-
-<!-- 🔗 **Live Link:** https://matbakhy.netlify.app/ -->
-
-![Matbakhy Screenshot](https://res.cloudinary.com/deq0w5tnr/image/upload/v1753351753/2025-07-16-000244-create-next-app-screenclip_epkkci.jpg)
+Matbakhy is a full‑stack marketplace platform that empowers kitchen makers to showcase and upload their unique kitchen designs. Customers can browse, favorite, and connect directly with makers to turn inspiration into reality.
 
 ---
 
-## How It's Made:
+## 🔗 Live Demo
 
-
-
-Built using **Next.js** with **Tailwind CSS**
-
+[Visit Matbakhy](https://matbakhy.netlify.app)
 
 ---
 
-## Optimizations
-
-- **Server-side rendering (SSR)** for SEO-friendly and fast initial load.
-- **User isolation** – each maker can only manage their own profile and designs.
-- Ready for **image hosting integration** (e.g., Cloudinary or Firebase).
-- Modular folder structure for clean scalability (pages, components, models, etc.).
+![Matbakhy Dashboard Preview](https://res.cloudinary.com/deq0w5tnr/image/upload/v1753351753/2025-07-16-000244-create-next-app-screenclip_epkkci.jpg)
 
 ---
 
-## Lessons Learned
+## 🛠️ Tech Stack
 
-This project helped me learn:
-- How to build a **full-stack marketplace** with Next.js
-- Managing complex data structures with MongoDB and Mongoose
-- Implementing **authentication** and protected routes
-- Organizing and designing a system where users can **submit content**
-- Creating a **real-world product flow** from user onboarding to public showcasing
+* **Framework**: Next.js (App Router) with TypeScript
+* **Styling**: Tailwind CSS
+* **Database**: MongoDB via Mongoose
+* **Image Hosting**: Cloudinary for design uploads (using next-cloudinary)
+* **State Management**: React Server Components & Context API
 
 ---
 
-## Examples:
-Here are a few more frontend/full-stack projects in my portfolio:
+## 🚀 Features
 
-**My Office (Full Stack for Lawyers):** https://github.com/Mooddex/my-office  
-**Beautello Salon:** https://github.com/Mooddex/Beautello-Salon  
-**Timeline Page:** https://github.com/Mooddex/timeline-page  
-**Profile Website:** https://github.com/Mooddex/ProfileWebsite
+1. **Server‑Side Rendering (SSR)** for fast, SEO‑friendly pages.
+2. **Design Uploads**: Makers can add new kitchen designs via Cloudinary.
+3. **Responsive UI**: Mobile‑first layout with Tailwind utilities.
+4. **Favorites & Inquiries**: Customers can favorite designs and send inquiries directly.
+5. **Clean Architecture**: Modular folder structure (api, components, models, lib).
+
+
+## ⚙️ Getting Started
+
+1. **Clone the repo**:
+
+   ```bash
+   git clone https://github.com/Mooddex/matbakhy.git
+   cd matbakhy
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   npm install next-cloudinary
+   ```
+
+3. **Configure environment**:
+
+   Create a `.env.local` file in the project root with your credentials:
+
+   ```ini
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+   NEXT_PUBLIC_CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+   ```
+
+4. **Run in development**:
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Build for production**:
+
+   ```bash
+   npm run build
+   npm start
+
+
+## 📖 Lessons Learned
+
+* Building a multi‑user marketplace UI with Next.js App Router.
+* Integrating Cloudinary for seamless image uploads.
+* Structuring a scalable codebase with separation of concerns.
+* Managing data and rendering with React Server Components.
+
+---
+
+## 🔗 More Projects
+
+* **My Office (Legal Case Manager)**: [https://github.com/Mooddex/my-office](https://github.com/Mooddex/my-office)
+* **Beautello Salon Booking**: [https://github.com/Mooddex/Beautello-Salon](https://github.com/Mooddex/Beautello-Salon)
+* **Interactive Timeline Page**: [https://github.com/Mooddex/timeline-page](https://github.com/Mooddex/timeline-page)
+* **Personal Profile Website**: [https://github.com/Mooddex/ProfileWebsite](https://github.com/Mooddex/ProfileWebsite)
+
+---
+
