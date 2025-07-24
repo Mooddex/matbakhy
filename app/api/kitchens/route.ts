@@ -3,7 +3,7 @@ import dbConnect from "@/app/lib/dbConnect";
 import Kitchen from "@/models/Kitchen";
 
 // GET - fetch all kitchens
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     await dbConnect();
     const kitchens = await Kitchen.find({});

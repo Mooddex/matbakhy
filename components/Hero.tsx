@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ClipLoader } from "react-spinners";
 interface HeroProps {
   title: string;
   subtitle: string;

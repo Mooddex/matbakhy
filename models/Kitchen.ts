@@ -3,7 +3,8 @@ import mongoose, { Schema, Document, models, model } from "mongoose";
 export interface IKitchen extends Document {
   name: string;
   maker: string;
-  price: number; // changed from string to number
+  price: number;
+  phoneNumber: number;
   description: string;
   location: string;
   imageUrl: string;
@@ -11,11 +12,12 @@ export interface IKitchen extends Document {
   updatedAt: Date;
 }
 
-const KitchenSchema: Schema = new Schema(
+const kitchenSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
     maker: { type: String, required: true },
-    price: { type: Number, required: true }, // changed from String to Number
+    price: { type: Number, required: true },
+    phoneNumber: { type: Number, required: true },
     description: { type: String, required: true },
     location: { type: String, required: true },
     imageUrl: { type: String, required: true },
@@ -23,4 +25,4 @@ const KitchenSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default models.Kitchen || model<IKitchen>("Kitchen", KitchenSchema);
+export default models.Kitchen || model<IKitchen>("Kitchen", kitchenSchema);

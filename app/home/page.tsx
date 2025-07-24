@@ -1,6 +1,7 @@
 import KitchenCard from "@/components/KitchenCard";
 import Image from "next/image";
 import homeBG from '@/img/homeBG.png';
+import { Kitchen } from "@/types/Kitchens";
 
 export default async function AllKitchens() {
   const getKitchens = async () => {
@@ -46,15 +47,16 @@ export default async function AllKitchens() {
 
         {/* Kitchens Grid */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {data.kitchens.map((kitchen: any) => (
+          {data.kitchens.map((kitchen: Kitchen) => (
             <KitchenCard
               key={kitchen._id}
-              userName={kitchen.userName}
+              name={kitchen.name}
               maker={kitchen.maker}
               price={kitchen.price}
               description={kitchen.description}
               location={kitchen.location}
-              imageUrl={kitchen.imageUrl}
+              imageUrl={kitchen.imageUrl} 
+              phoneNumber={kitchen.phoneNumber}              
             />
           ))}
         </div>

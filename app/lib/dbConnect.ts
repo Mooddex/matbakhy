@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+
+
 declare global {
-  var mongoose: any; // This must be a `var` and not a `let / const`
+  var mongoose: any; // eslint-disable-line @typescript-eslint/no-explicit-any 
 }
 
 let cached = global.mongoose;
