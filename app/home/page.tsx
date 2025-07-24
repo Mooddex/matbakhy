@@ -3,10 +3,10 @@
 import KitchenCard from "@/components/KitchenCard";
 import Image from "next/image";
 import homeBG from '@/img/homeBG.png';
-import { getKitchensFromDB } from "@/app/lib/getKitchens"; // ✅ import your new DB function
+import { getKitchensFromDB } from "@/app/lib/getKitchens"; 
 
 export default async function AllKitchens() {
-  const kitchens = await getKitchensFromDB(); // ✅ call it directly
+  const kitchens = await getKitchensFromDB(); 
 
   if (!kitchens?.length) {
     return <p className="text-center mt-20 text-gray-600">No kitchens found.</p>;
