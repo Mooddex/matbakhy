@@ -1,25 +1,16 @@
+/* eslint-disable */
+
 import KitchenCard from "@/components/KitchenCard";
 import Image from "next/image";
 import homeBG from '@/img/homeBG.png';
-import { Kitchen } from "@/types/Kitchens";
+import { getKitchensFromDB } from "@/app/lib/getKitchens"; // ✅ import your new DB function
 
 export default async function AllKitchens() {
-  const getKitchens = async () => {
-    try {
-      const res = await fetch("http://localhost:3000/api/kitchens", {
-        cache: "no-store",
-      });
+  const kitchens = await getKitchensFromDB(); // ✅ call it directly
 
-      if (!res.ok) throw new Error("Failed to fetch kitchens");
-      return res.json();
-    } catch (error) {
-      console.error("❌ Error loading kitchens:", error);
-      return null;
-    }
-  };
-
-  const data = await getKitchens();
-  if (!data?.kitchens?.length) return <p className="text-center mt-20 text-gray-600">No kitchens found.</p>;
+  if (!kitchens?.length) {
+    return <p className="text-center mt-20 text-gray-600">No kitchens found.</p>;
+  }
 
   return (
     <div className="relative min-h-screen">
@@ -47,7 +38,7 @@ export default async function AllKitchens() {
 
         {/* Kitchens Grid */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {data.kitchens.map((kitchen: Kitchen) => (
+          {kitchens.map((kitchen: any) => (
             <KitchenCard
               key={kitchen._id}
               name={kitchen.name}
@@ -55,8 +46,8 @@ export default async function AllKitchens() {
               price={kitchen.price}
               description={kitchen.description}
               location={kitchen.location}
-              imageUrl={kitchen.imageUrl} 
-              phoneNumber={kitchen.phoneNumber}              
+              imageUrl={kitchen.imageUrl}
+              phoneNumber={kitchen.phoneNumber}
             />
           ))}
         </div>

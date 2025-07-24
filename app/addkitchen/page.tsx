@@ -26,7 +26,6 @@ export default function AddKitchenPage() {
       });
       if (!res.ok) throw new Error("Failed to add kitchen");
       alert("✅ Kitchen added successfully!");
-      // Optionally clear form here...
     } catch {
       alert("❌ Error adding kitchen.");
     }
@@ -50,26 +49,33 @@ export default function AddKitchenPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Kitchen Image</label>
               <CldUploadButton
-  uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
-  onSuccess={(res) => {
-  const result = res as { info: { secure_url: string } };
-  setImageUrl(result.info.secure_url);
-  setUploading(false);
-}}
+                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+                    onSuccess={(res) => {
+                    const result = res as { info: { secure_url: string } };
+                    setImageUrl(result.info.secure_url);
+                    setUploading(false);
+                  }}
 
-  options={{ maxFiles: 1 }}
-  className="w-full flex justify-center items-center border-2 border-dashed border-violet-300 rounded-xl p-6 cursor-pointer hover:border-violet-500 transition"
->
-  {uploading
-    ? <Loader2 className="animate-spin text-violet-600" size={24} />
-    : <span className="text-gray-600">Click or Drop to Upload</span>
-  }
-</CldUploadButton>
+                    options={{ maxFiles: 1 }}
+                    className="w-full flex justify-center items-center border-2 border-dashed border-violet-300 rounded-xl p-6 cursor-pointer hover:border-violet-500 transition"
+                  >
+                    {uploading
+                      ? <Loader2 className="animate-spin text-violet-600" size={24} />
+                      : <span className="text-gray-600">Click or Drop to Upload</span>
+                    }
+              </CldUploadButton>
 
 
               {imageUrl && (
                 <div className="mt-4 relative">
-                  <Image src={imageUrl} alt="Kitchen" className="w-full h-48 object-cover rounded-lg shadow" />
+                <Image 
+                    src={imageUrl} 
+                    alt="Kitchen" 
+                    width={400} // add appropriate width
+                    height={192} // add appropriate height
+                    className="w-full h-48 object-cover rounded-lg shadow" 
+                  />
+
                   <button
                     type="button"
                     onClick={() => setImageUrl("")}

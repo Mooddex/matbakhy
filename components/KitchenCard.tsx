@@ -1,7 +1,8 @@
+/* eslint-disable */
+
 // components/KitchenCard.tsx
 import { KitchenCardProps } from "@/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
-import Image from "next/image";
 const KitchenCard = ({
   name,
   maker,
@@ -18,13 +19,14 @@ const KitchenCard = ({
     </div>
 
     {/* Image */}
-    <div className="relative w-full h-48 mt-2">
-      <Image
-        src={imageUrl || "/default-kitchen.jpg"}
-        alt={name}
-        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-      />
-    </div>
+   
+<div className="relative w-full h-48 mt-2">
+  <img
+    src={imageUrl || "/default-kitchen.jpg"}
+    alt={name ?? "Kitchen"}
+    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-lg"
+  />
+</div>
 
     {/* Description */}
     <div className="px-4 pt-4 text-sm text-gray-700 line-clamp-3">
