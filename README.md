@@ -32,6 +32,15 @@ Matbakhy is a full‑stack marketplace platform that empowers kitchen makers to 
 4. **Favorites & Inquiries**: Customers can favorite designs and send inquiries directly.
 5. **Clean Architecture**: Modular folder structure (api, components, models, lib).
 
+---
+
+## 🛠️ Future Improvements
+
+- Add Authentication
+- Profiels 
+- More Chating Options
+
+---
 
 ## ⚙️ Getting Started
 
