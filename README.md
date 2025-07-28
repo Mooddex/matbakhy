@@ -1,104 +1,101 @@
-# Matbakhy
+# 🍽️ Matbakhy
 
-Matbakhy is a full‑stack marketplace platform that empowers kitchen makers to showcase and upload their unique kitchen designs. Customers can browse, favorite, and connect directly with makers to turn inspiration into reality.
+**Matbakhy** is a full-stack marketplace platform that empowers kitchen makers to showcase and share their unique kitchen designs. Customers can browse, favorite, and connect directly with makers to turn inspiration into reality.
 
 ---
 
 ## 🔗 Live Demo
 
-[Visit Matbakhy](https://matbakhy.netlify.app)
+👉 [Visit Matbakhy](https://matbakhy-beta.vercel.app/)
+
+![Matbakhy Preview](https://res.cloudinary.com/deq0w5tnr/image/upload/v1753351753/2025-07-16-000244-create-next-app-screenclip_epkkci.jpg)
 
 ---
 
-![Matbakhy Dashboard Preview](https://res.cloudinary.com/deq0w5tnr/image/upload/v1753351753/2025-07-16-000244-create-next-app-screenclip_epkkci.jpg)
+## 🧰 Tech Stack
 
----
-
-## 🛠️ Tech Stack
-
-* **Framework**: Next.js (App Router) with TypeScript
+* **Framework**: Next.js (App Router) + TypeScript
 * **Styling**: Tailwind CSS
-* **Database**: MongoDB via Mongoose
-* **Image Hosting**: Cloudinary for design uploads (using next-cloudinary)
+* **Database**: MongoDB with Mongoose
+* **Image Upload**: Cloudinary (via `next-cloudinary`)
 * **State Management**: React Server Components & Context API
 
 ---
 
-## 🚀 Features
+## ✨ Key Features
 
-1. **Server‑Side Rendering (SSR)** for fast, SEO‑friendly pages.
-2. **Design Uploads**: Makers can add new kitchen designs via Cloudinary.
-3. **Responsive UI**: Mobile‑first layout with Tailwind utilities.
-4. **Favorites & Inquiries**: Customers can favorite designs and send inquiries directly.
-5. **Clean Architecture**: Modular folder structure (api, components, models, lib).
+* **⚡ Fast & SEO-Friendly** – Built with SSR using Next.js App Router.
+* **📸 Design Uploads** – Makers can easily upload kitchen designs via Cloudinary.
+* **📱 Mobile-Responsive** – Built with Tailwind CSS for clean, responsive UI.
+* **❤️ Favorites & Inquiries** – Customers can favorite kitchens and send direct messages to makers.
+* **🗂️ Clean Architecture** – Modular folder structure for scalability and maintainability.
 
 ---
 
-## 🛠️ Future Improvements
+## 🚧 Upcoming Features
 
-- Add Authentication
-- Profiels 
-- More Chating Options
+* 🔐 **User Authentication** (Sign up / Log in)
+* 👤 **Maker & Customer Profiles**
+* 💬 **Advanced Messaging System**
 
 ---
 
 ## ⚙️ Getting Started
 
-1. **Clone the repo**:
+### 1. Clone the Repository
 
-   ```bash
-   git clone https://github.com/Mooddex/matbakhy.git
-   cd matbakhy
-   ```
+```bash
+git clone https://github.com/Mooddex/matbakhy.git
+cd matbakhy
+```
 
-2. **Install dependencies**:
+### 2. Install Dependencies
 
-   ```bash
-   npm install
-   npm install next-cloudinary
-   ```
+```bash
+npm install
+npm install next-cloudinary
+```
 
-3. **Configure environment**:
+### 3. Setup Environment Variables
 
-   Create a `.env.local` file in the project root with your credentials:
+Create a `.env.local` file in the root directory and add:
 
-   ```ini
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
-   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-   NEXT_PUBLIC_CLOUDINARY_API_KEY=your_cloudinary_api_key
-   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-   ```
+```ini
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+NEXT_PUBLIC_CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+```
 
-4. **Run in development**:
+### 4. Run the App
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
-5. **Build for production**:
+### 5. Build for Production
 
-   ```bash
-   npm run build
-   npm start
-
-
-## 📖 Lessons Learned
-
-* Building a multi‑user marketplace UI with Next.js App Router.
-* Integrating Cloudinary for seamless image uploads.
-* Structuring a scalable codebase with separation of concerns.
-* Managing data and rendering with React Server Components.
+```bash
+npm run build
+npm start
+```
 
 ---
 
-## 🔗 More Projects
+## 📘 Lessons Learned
 
-* **My Office (Legal Case Manager)**: [https://github.com/Mooddex/my-office](https://github.com/Mooddex/my-office)
-* **Beautello Salon Booking**: [https://github.com/Mooddex/Beautello-Salon](https://github.com/Mooddex/Beautello-Salon)
-* **Interactive Timeline Page**: [https://github.com/Mooddex/timeline-page](https://github.com/Mooddex/timeline-page)
-* **Personal Profile Website**: [https://github.com/Mooddex/ProfileWebsite](https://github.com/Mooddex/ProfileWebsite)
+* Built a scalable multi-user marketplace using Next.js App Router.
+* Integrated Cloudinary for real-time image uploads with presets.
+* Designed modular architecture with separation of concerns.
+* Leveraged React Server Components for optimized rendering.
 
 ---
 
+## 🔗 More Projects by Me
+
+* **My Office (Legal Case Manager)** – [GitHub](https://github.com/Mooddex/my-office)
+* **Beautello Salon Booking App** – [GitHub](https://github.com/Mooddex/Beautello-Salon)
+* **Interactive Timeline Page** – [GitHub](https://github.com/Mooddex/timeline-page)
+* **Personal Portfolio Website** – [GitHub](https://github.com/Mooddex/ProfileWebsite)
