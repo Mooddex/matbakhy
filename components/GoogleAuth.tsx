@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const GoogleAuth = () => {
-  const router = useRouter();
+  
 
   const handleGoogleSignIn = () => {
     signIn("google", { callbackUrl: "/explore" });

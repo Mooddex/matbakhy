@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import loogo from "@/img/loogo.png";
-import { Home, User, LogIn, LogOut, UserPlus, Plus  } from "lucide-react";
+import { Home, LogIn,  UserPlus, Plus  } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 
 const Nav = () => {
