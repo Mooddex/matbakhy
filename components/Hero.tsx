@@ -24,7 +24,7 @@ const Hero = ({title, subtitle, ctaText}:HeroProps) => {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/home">
+            <Link href="/explore">
                          <button
               className="h-12 px-6 font-semibold text-white bg-violet-700 rounded-md shadow hover:bg-violet-800 transition"
             >

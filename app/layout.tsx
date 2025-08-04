@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className="min-h-screen flex flex-col">
+          <SessionProvider>
           <Nav />
           <main className="flex-grow">{children}</main>
+          </SessionProvider>
           <Footer
             title="Powered by Kitchen Makers"
             subtitle="Join a growing network of professionals and homeowners bringing kitchens to life in Egypt."
