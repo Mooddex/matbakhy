@@ -43,13 +43,13 @@ const { data: session, status } = useSession();
         // not signed in user
         :(
           <>
-      <Link href="/login" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+      <Link href="/signin" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <LogIn size={18} />
         <span className="hidden md:inline">
         Log In
         </span>
       </Link>
-      <Link href="/register" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+      <Link href="/signup" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <UserPlus size={18} />
         <span className="hidden md:inline">
           Sign UP

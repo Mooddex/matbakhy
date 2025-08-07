@@ -1,11 +1,11 @@
 "use client";
 
-import GoogleAuth from "@/components/GoogleAuth";
+import SigninForm from "@/components/SigninForm";
 
 function SignIn() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-white">
-      <GoogleAuth />
+      <SigninForm />
     </main>
   );
 }

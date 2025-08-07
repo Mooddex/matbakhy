@@ -1,5 +1,5 @@
 // app/lib/getKitchens.ts
-import dbConnect from "@/app/lib/dbConnect";
+import dbConnect from "@/lib/dbConnect";
 import Kitchen from "@/models/Kitchen";
 
 export async function getKitchensFromDB() {

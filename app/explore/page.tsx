@@ -3,7 +3,7 @@
 import KitchenCard from "@/components/KitchenCard";
 import Image from "next/image";
 import homeBG from '@/img/homeBG.png';
-import { getKitchensFromDB } from "@/app/lib/getKitchens"; 
+import { getKitchensFromDB } from "@/lib/getKitchens"; 
 
 export default async function AllKitchens() {
   const kitchens = await getKitchensFromDB(); 
