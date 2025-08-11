@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import loogo from "@/img/loogo.png";
-import { Home, LogIn,  UserPlus, Plus  } from "lucide-react";
+import { Home, LogIn,  UserPlus, Plus, User  } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 
 const Nav = () => {
@@ -20,7 +20,8 @@ const { data: session, status } = useSession();
       </Link>
       <Link href="/explore" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <Home size={18} />
-        <span className="hidden md:inline">Explore</span>
+        <span className="hidden md:inline">
+          Explore</span>
       </Link>
       {
         session? 
@@ -33,11 +34,16 @@ const { data: session, status } = useSession();
           Add New
           </span>
       </Link>
+    
+      <Link href="/profile" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+        <User size={18} />
+        <span className="hidden md:inline">profile</span>
+      </Link> 
       <button
        onClick={() => signOut({ redirectTo: "/" })}
         className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl transition font-semibold">
         Sign Out
-      </button>
+      </button> 
           </>
         )
         // not signed in user

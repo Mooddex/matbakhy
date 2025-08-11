@@ -1,4 +1,3 @@
-// lib/mongoClient.ts - Consolidate your MongoDB connections
 import { MongoClient } from "mongodb";
 
 if (!process.env.MONGODB_URI) {
@@ -31,5 +30,5 @@ export default clientPromise;
 // Helper function for direct database access
 export async function getDatabase() {
   const client = await clientPromise;
-  return client.db(process.env.MONGODB_DB || "matbakhy");
+  return client.db(process.env.MONGODB_URI || "matbakhy");
 }

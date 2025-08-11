@@ -21,16 +21,26 @@
 * **State Management**: React Server Components & Context API
 
 ---
+🧩 Core Features
 
-## ✨ Key Features
+[✅] 🔐 Login
+[✅] 🧾 Signup
+[✅] 🖼️ Create Kitchen Listing
+[✅] 📖 View Kitchen Details
+[✅] ✏️ Update Kitchen Listing
+[✅] ❌ Delete Kitchen Listing
+[✅] 🔍 Search & Basic Filtering
+[✅] 📱 Responsive Design
 
-* **⚡ Fast & SEO-Friendly** – Built with SSR using Next.js App Router.
-* **📸 Design Uploads** – Makers can easily upload kitchen designs via Cloudinary.
-* **📱 Mobile-Responsive** – Built with Tailwind CSS for clean, responsive UI.
-* **❤️ Favorites & Inquiries** – Customers can favorite kitchens and send direct messages to makers.
-* **🗂️ Clean Architecture** – Modular folder structure for scalability and maintainability.
 
----
+👤 Maker & Customer Profiles
+
+💬 Advanced Messaging System
+
+📊 Analytics for Makers
+
+🌍 Multi-language Support
+
 
 ## 🚧 Upcoming Features
 

@@ -2,7 +2,7 @@
 
 import KitchenCard from "@/components/KitchenCard";
 import Image from "next/image";
-import homeBG from '@/img/homeBG.png';
+import homeBG from '@/img/bg.png';
 import { getKitchensFromDB } from "@/lib/getKitchens"; 
 
 export default async function AllKitchens() {
@@ -41,6 +41,7 @@ export default async function AllKitchens() {
           {kitchens.map((kitchen: any) => (
             <KitchenCard
               key={kitchen._id}
+              id={kitchen._id} // Add this line to pass the ID
               name={kitchen.name}
               maker={kitchen.maker}
               price={kitchen.price}
@@ -48,6 +49,7 @@ export default async function AllKitchens() {
               location={kitchen.location}
               imageUrl={kitchen.imageUrl}
               phoneNumber={kitchen.phoneNumber}
+              showActions={false} // Set to false since users shouldn't delete/edit on explore page
             />
           ))}
         </div>
