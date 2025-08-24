@@ -28,7 +28,7 @@ export default function AddKitchenPage() {
      <div className="max-w-5xl mx-auto px-4">
         <div className="mb-6">
           <Link 
-            href="/kitchens"
+            href="/"
             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
           >
             <ArrowLeft size={18} />
