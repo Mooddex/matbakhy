@@ -1,24 +1,57 @@
-// models/User.ts
-import mongoose, { Schema, model, models } from 'mongoose'
+import mongoose, { Schema, Document } from "mongoose";
 
-// Define the IUser interface for type safety
-export interface IUser {
-  username: string
-  email: string
-  password: string
-  // …any other fields…
+export interface IUser extends Document {
+  _id: mongoose.Types.ObjectId;
+  email: string;
+  name: string;
+  hashedPassword: string;
+  image?: string | null;
+  provider?: string;
+  providerId?: string;
+  emailVerified?: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-// Create the Mongoose schema
-const userSchema = new Schema<IUser>(
-  {
-    username: { type: String, required: true, unique: true },
-    email:    { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    // …additional fields…
+const UserSchema = new Schema<IUser>({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
   },
-  { timestamps: true }
-)
+  name: {
+    type: String,
+    required: true,
+  },
+  hashedPassword: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    default: null,
+  },
+  provider: {
+    type: String,
+    default: "credentials",
+  },
+  providerId: {
+    type: String,
+    default: null,
+  },
+  emailVerified: {
+    type: Date,
+    default: null,
+  },
+}, {
+  timestamps: true, // This automatically adds createdAt and updatedAt
+});
 
-// Prevent model overwrite upon hot reload and export
-export const User = models.user || model<IUser>('user', userSchema)
+// Create indexes
+UserSchema.index({ email: 1 });
+UserSchema.index({ providerId: 1, provider: 1 });
+
+const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+
+export default User;

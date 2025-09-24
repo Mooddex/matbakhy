@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default function AddKitchenPage() {
+export default function AddKitchen() {
   const router = useRouter();
   const handleSuccess = () => {
     console.log('Kitchen added successfully!');

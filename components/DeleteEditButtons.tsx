@@ -56,7 +56,7 @@ const DeleteEditButtons = ({
     <div className="flex flex-wrap gap-2">
       <button
         onClick={() => router.push(`/kitchen/${id}/edit`)}
-        className={`${buttonClasses} bg-yellow-600 hover:bg-yellow-700 text-white`}
+        className={`${buttonClasses} bg-blue-600 hover:bg-blue-700 text-white`}
       >
         Edit
       </button>

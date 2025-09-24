@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 // Updated routes to match your actual structure
 const publicRoutes = ["/", "/explore"];
 const authRoutes = ["/auth/signin", "/auth/signup", "/auth/error"]; // Updated paths
-const privateRoutes = ["/addkitchen", "/profile", "/dashboard"];
+const privateRoutes = ["/kitchen/new", "/profile", "/dashboard"];
 
 const { auth } = NextAuth(authConfig);
 
