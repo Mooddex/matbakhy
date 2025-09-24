@@ -1,6 +1,7 @@
 'use client';
 
 import Image from "next/image";
+import ModeToggle from "./mode-toggle";
 import Link from "next/link";
 import loogo from "@/img/loogo.png";
 import { Home, LogIn,  UserPlus, Plus, User  } from "lucide-react";
@@ -18,17 +19,18 @@ const { data: session, status } = useSession();
       <Link href="/" className="flex items-center gap-2">
         <Image src={loogo} alt="LOGO" width={30} height={30} />
       </Link>
-      <Link href="/explore" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+      <Link href="/kitchen/all" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <Home size={18} />
         <span className="hidden md:inline">
           Explore</span>
       </Link>
+      <ModeToggle />
       {
         session? 
         (
           // signed in user
           <>
-          <Link href="/addkitchen" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+          <Link href="/kitchen/new" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <Plus size={18} />
         <span className="hidden md:inline">
           Add New
