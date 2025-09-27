@@ -1,5 +1,5 @@
 "use client";
-import AddKitchenForm from "@/components/AddKitchenForm";
+import AddKitchenForm from "@/components/kitchenComponents/AddKitchenForm";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";

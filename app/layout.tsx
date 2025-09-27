@@ -34,14 +34,9 @@ export default function RootLayout({
           <SessionProvider>
           <Nav />
           <main className="flex-grow">
-             <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        enableSystem
-                        disableTransitionOnChange
-                      >
+            
             {children}
-            </ThemeProvider>
+            
             </main>
           </SessionProvider>
           <Footer

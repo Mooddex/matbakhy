@@ -2,7 +2,7 @@
 import { CldUploadButton } from "next-cloudinary";
 import { useState } from "react";
 import { Loader2, ImageIcon, User, Tag, DollarSign, MapPin, Phone } from "lucide-react";
-import KitchenCard from "@/components/KitchenCard";
+import KitchenCard from "./KitchenCard";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -72,7 +72,7 @@ export default function AddKitchenForm({
         onSuccess();
       } else {
         resetForm();
-        router.push("/explore");
+        router.push("/kitchen/all");
       }
     } catch {
       alert("❌ Error adding kitchen.");

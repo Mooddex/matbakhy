@@ -24,7 +24,7 @@ const { data: session, status } = useSession();
         <span className="hidden md:inline">
           Explore</span>
       </Link>
-      <ModeToggle />
+     
       {
         session? 
         (

@@ -1,4 +1,4 @@
-import AddKitchen from "@/components/addKitchen";
+import AddKitchen from "@/components/kitchenComponents/addKitchen";
 
 const AddKitchenPage = () => {
   return ( 

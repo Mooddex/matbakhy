@@ -1,4 +1,3 @@
-// auth.config.ts - Simple approach without custom types
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
