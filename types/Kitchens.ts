@@ -9,7 +9,7 @@ export interface KitchenCardProps {
   location: string;
 };
 export interface Kitchen  {
-  _id: string;
+  id: string;
   name: string;
   maker: string;
   price: number;

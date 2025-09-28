@@ -19,7 +19,7 @@ export default function KitchensGrid({ }) {
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {loading && <p>Loading...</p>}
       {!loading && data.map((kitchen) => (
-        <KitchenCard key={kitchen._id} {...kitchen} />
+        <KitchenCard key={kitchen.id} {...kitchen} />
       ))}
     </div>
   );

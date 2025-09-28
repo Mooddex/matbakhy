@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { KitchenCardProps } from "@/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
-import { DeleteEditButtons } from "./DeleteEditButtons";
+import { DeleteEditButtons } from "../DeleteEditButtons";
 import Link from "next/link";
 
 interface ExtendedKitchenCardProps extends KitchenCardProps {
@@ -23,6 +23,7 @@ const KitchenCard = ({
   const CardContent = () => (
     <div className="bg-white rounded-2xl border shadow-sm hover:shadow-lg overflow-hidden transition h-full">
       {/* Title */}
+      
       <div className="px-4 pt-4">
         <h3 className="text-xl font-semibold text-violet-900">{name}</h3>
       </div>
@@ -74,13 +75,6 @@ const KitchenCard = ({
         <Link href={`/kitchen/${id}`} className="block h-full">
           <CardContent />
         </Link>
-        
-        {/* Conditionally show Delete/Edit buttons - positioned absolutely */}
-        {showActions && (
-          <div className="absolute bottom-2 right-2 z-10" onClick={(e) => e.preventDefault()}>
-            <DeleteEditButtons id={id} />
-          </div>
-        )}
       </div>
     );
   }
