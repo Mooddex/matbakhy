@@ -1,4 +1,4 @@
-import { getKitchenById } from "@/app/actions/kitchen";
+import { fetchKitchenById } from "@/app/actions/kitchen";
 import Image from "next/image";
 import Link from "next/link";
 import { User, Phone, MapPin, DollarSign, ArrowLeft } from "lucide-react";
@@ -15,7 +15,7 @@ export default async function KitchenPage({
   let Kitchen;
   // get the kitchen details by its id
   try {
-    Kitchen = await getKitchenById(id);
+    Kitchen = await fetchKitchenById(id);
   } catch (error) {
     console.error("Failed to fetch kitchen:", error);
     notFound(); // This will show a 404 page

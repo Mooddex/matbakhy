@@ -7,10 +7,10 @@ const KitchenBaseSchema = z.object({
     .min(2, "At least Two Characters")
     .endsWith("@", "Username Must End With (@)"),
   maker: z.string(),
-  price: z.string().min(4, "Must At Least Be 4 Numbers"),
+  price: z.number().min(4, "Must At Least Be 4 Numbers"),
   description: z.string(),
   location: z.string(),
-  phoneNumber: z.string(),
+  phoneNumber: z.number().min(8),
 imageUrl: z.string().url("Invalid URL"),
 });
 
