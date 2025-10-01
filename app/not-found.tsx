@@ -50,9 +50,9 @@ const NotFound = () => {
         {/* Description with Better Styling */}
         <div className="mb-12 max-w-xl mx-auto">
           <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg border border-white/20 dark:border-gray-700/20">
-            The page you're looking for doesn't exist or has been moved. 
+            The page {`you're`} looking for {`doesn't`} exist or has been moved. 
             <br />
-            <span className="font-semibold text-violet-600 dark:text-violet-400">Let's navigate you back to safety!</span>
+            <span className="font-semibold text-violet-600 dark:text-violet-400">{`Let's`} navigate you back to safety!</span>
           </p>
         </div>
 

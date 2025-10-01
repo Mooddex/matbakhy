@@ -12,10 +12,6 @@ export default async function EditKitchen({
     const kitchen = await fetchKitchenById(id);
     if(!kitchen){ notFound()};    
     return(
-        <div className="max-w-xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Edit Product</h1>
       <EditKitchenForm kitchen={kitchen} />
-    </div>
-
     )
 }

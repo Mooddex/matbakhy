@@ -3,9 +3,9 @@
 import { toast } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { AddKitchenSchema, TAddKitchenSchema } from "@/lib/validators";
+import { EditKitchenSchema, TEditKitchenSchema } from "@/lib/validators";
 import { Kitchen } from "@/types/Kitchens";
-import {   updateKitchenAction } from "@/app/actions/kitchen";
+import {  updateKitchenAction } from "@/app/actions/kitchen";
 import { useRouter } from "next/navigation";
 
 interface AddProductFormProps {
@@ -13,22 +13,24 @@ interface AddProductFormProps {
 }
 
 export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
-  const router = useRouter();
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<TAddKitchenSchema>({
-    resolver: zodResolver(AddKitchenSchema),
+  } = useForm<TEditKitchenSchema>({
+    resolver: zodResolver(EditKitchenSchema),
     defaultValues: kitchen,
   });
 
-  const submitHandler = async (data: TAddKitchenSchema) => {
+  const submitHandler = async (data: TEditKitchenSchema) => {
     const res = await updateKitchenAction(kitchen.id, data);
     if (res.success) {
-      toast.success(`${kitchen.name} updated successfully`, {
+     await toast.success(`${kitchen.name} updated successfully`, {
         autoClose: 3000,
       });
+      router.push(`/kitchen/${kitchen.id}`)
+      router.refresh()
     } else {
       console.error(res.error);
       toast.error(
@@ -77,8 +79,8 @@ export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
       <div>
         <label className="block text-sm">Phone Number</label>
         <input
-          {...register("phoneNumber", { valueAsNumber: true })}
-          type="telephone"
+          {...register("phoneNumber")}
+          type="tel"
           className="border p-2 w-full rounded"
         />
         {errors.phoneNumber && (

@@ -73,7 +73,7 @@ const DeleteEditButtons = ({
 
       {showBackButton && (
         <button
-          onClick={() => router.push('/explore')}
+          onClick={() => router.back()}
           className={`${buttonClasses} bg-gray-700 hover:bg-gray-800 text-white`}
         >
           Back

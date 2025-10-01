@@ -5,7 +5,7 @@ const KitchenBaseSchema = z.object({
   name: z
     .string()
     .min(2, "At least Two Characters")
-    .endsWith("@", "Username Must End With (@)"),
+    .startsWith("@", "Username Must start With (@)"),
   maker: z.string(),
   price: z.number().min(4, "Must At Least Be 4 Numbers"),
   description: z.string(),
@@ -23,23 +23,6 @@ export const EditKitchenSchema = KitchenBaseSchema.extend({
 });
 export type TEditKitchenSchema = z.infer<typeof EditKitchenSchema>;
 
-//product
-const ProductBaseSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  category: z.string().min(1, "Category is required"),
-  price: z.number().nonnegative("Price cannot be negative"),
-  stock: z.number().int().nonnegative("Stock cannot be negative"),
-
-});
-
-// Add schema (no id)
-export const AddProductSchema = ProductBaseSchema;
-export type TAddProductSchema = z.infer<typeof AddProductSchema>;
-
-// Edit schema (id required)
-export const EditProductSchema = ProductBaseSchema;
-
-export type TEditProductSchema = z.infer<typeof EditProductSchema>;
 
 
 

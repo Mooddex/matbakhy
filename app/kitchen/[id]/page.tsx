@@ -4,7 +4,6 @@ import Link from "next/link";
 import { User, Phone, MapPin, DollarSign, ArrowLeft } from "lucide-react";
 import { DeleteEditButtons } from "@/components/DeleteEditButtons";
 import { notFound } from "next/navigation";
-import { Kitchen } from "@/types/Kitchens";
 export default async function KitchenPage({
   params,
 }: {

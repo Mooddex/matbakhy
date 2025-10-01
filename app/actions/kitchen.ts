@@ -20,7 +20,7 @@ export async function updateKitchenAction(
     const res = await fetch(`https://68d7dfef2144ea3f6da6b105.mockapi.io/kitchen/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(  updatedKitchen),
+      body: JSON.stringify(updatedKitchen),
     });
 
     if (!res.ok) {
@@ -30,7 +30,10 @@ export async function updateKitchenAction(
     const data = await res.json();
     return { success: true, data };
   } catch (error) {
-    console.error("Update kitchen error:", error);
-    return { success: false, message: "Network error occurred", error };
-  }
-}
+  console.error("Update kitchen error:", error);
+  return { 
+    success: false, 
+    message: "Network error occurred", 
+    error: error instanceof Error ? error.message : "Unknown error" 
+  };
+}};
