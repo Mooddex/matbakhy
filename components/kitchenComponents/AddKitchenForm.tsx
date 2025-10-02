@@ -147,7 +147,6 @@ export default function AddKitchenForm({
               setImageUrl(result.info.secure_url);
               setUploading(false);
             }}
-            onUpload={() => setUploading(true)}
             options={{ maxFiles: 1 }}
             className="w-full flex justify-center items-center border-2 border-dashed border-violet-300 rounded-xl p-6 cursor-pointer hover:border-violet-500 transition"
           >

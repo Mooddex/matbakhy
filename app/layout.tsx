@@ -33,7 +33,7 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col">
           <SessionProvider>
           <Nav />
-          <main className="flex-grow">
+          <main className="flex-grow pt-24">
             
             {children}
              <ToastContainer
