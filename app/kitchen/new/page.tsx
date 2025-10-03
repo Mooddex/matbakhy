@@ -1,8 +1,12 @@
-import AddKitchen from "@/components/kitchenComponents/addKitchen";
+import BackButton from "@/components/BackButton";
+import AddKitchenForm from "@/components/kitchenComponents/AddKitchenForm";
 
 const AddKitchenPage = () => {
   return ( 
-    <AddKitchen />
+    <> 
+    <BackButton />
+    <AddKitchenForm />
+    </>
    );
 }
  

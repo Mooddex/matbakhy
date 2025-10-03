@@ -2,8 +2,9 @@ import { fetchKitchenById } from "@/app/actions/kitchen";
 import Image from "next/image";
 import Link from "next/link";
 import { User, Phone, MapPin, DollarSign, ArrowLeft } from "lucide-react";
-import { DeleteEditButtons } from "@/components/DeleteEditButtons";
+import DeleteEditButtons from "@/components/DeleteEditButtons";
 import { notFound } from "next/navigation";
+import BackButton from "@/components/BackButton";
 export default async function KitchenPage({
   params,
 }: {
@@ -25,19 +26,9 @@ export default async function KitchenPage({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
       {/* Back Button */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <Link
-            href="/explore"
-            className="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 transition"
-          >
-            <ArrowLeft size={20} />
-            Back to Explore
-          </Link>
-        </div>
-      </div>
+      <BackButton />
 
       {/* Kitchen Details */}
       <div className="container mx-auto px-4 py-8">
@@ -127,8 +118,12 @@ export default async function KitchenPage({
                     <Phone size={20} />
                     Contact {Kitchen.maker}
                   </a>
-                  {/* Pass the actual kitchen ID, not empty string */}
-                  <DeleteEditButtons id={Kitchen.id || Kitchen.id} />
+                  {/* EDIT Button */}
+                  <Link href={`${Kitchen.id}/edit`}>
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer">
+                      Edit
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

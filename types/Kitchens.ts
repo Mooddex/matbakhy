@@ -2,7 +2,7 @@
 export interface KitchenCardProps {
   name: string;
   maker: string;
-  phoneNumber: string | number;
+  phoneNumber: string ;
   imageUrl?: string;
   description: string;
   price: number;
@@ -15,7 +15,7 @@ export interface Kitchen  {
   price: number;
   description: string;
   location: string;
-  phoneNumber: number;
+  phoneNumber: string;
   imageUrl: string;
   createdAt: string;
 };

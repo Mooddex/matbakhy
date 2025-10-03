@@ -49,13 +49,18 @@ export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
       onSubmit={handleSubmit(submitHandler)}
       className="max-w-2xl mx-auto space-y-6 p-6 rounded-2xl border border-violet-800 bg-violet-950 shadow-md"
     >
-      <h2 className="text-2xl font-semibold text-white">
-        Edit Kitchen
-      </h2>
+      <h2 className="text-2xl font-semibold text-white">Edit Kitchen</h2>
 
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-violet-200 mb-1">
+        <input type="hidden" {...register("id")} />
+{errors.id && (
+          <p className="text-red-400 text-sm mt-1">{errors.id.message}</p>
+        )}
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-violet-200 mb-1"
+        >
           Name
         </label>
         <input
@@ -109,7 +114,9 @@ export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
           className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
         />
         {errors.phoneNumber && (
-          <p className="text-red-400 text-sm mt-1">{errors.phoneNumber.message}</p>
+          <p className="text-red-400 text-sm mt-1">
+            {errors.phoneNumber.message}
+          </p>
         )}
       </div>
 
@@ -124,7 +131,9 @@ export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
           className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
         />
         {errors.description && (
-          <p className="text-red-400 text-sm mt-1">{errors.description.message}</p>
+          <p className="text-red-400 text-sm mt-1">
+            {errors.description.message}
+          </p>
         )}
       </div>
 
@@ -159,6 +168,15 @@ export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
           <Upload size={18} />
           <span>Click to upload or drag and drop</span>
         </CldUploadButton>
+        <input
+          type="text"
+          {...register("imageUrl")}
+          
+          className="display-none"
+        />
+        {errors.imageUrl && (
+          <p className="text-red-400 text-sm mt-1">{errors.imageUrl.message}</p>
+        )}
       </div>
 
       {/* Submit */}
