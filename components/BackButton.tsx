@@ -7,7 +7,7 @@ export default function BackButton() {
                 <div className=" align-middle mx-auto px-4 py-4">
                   <Link
                     href="/kitchen/all"
-                    className="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 transition"
+                    className="inline-flex items-center gap-2 text-white hover:text-blue-600 transition"
                   >
                     <ArrowLeft size={20} />
                     Back to Explore

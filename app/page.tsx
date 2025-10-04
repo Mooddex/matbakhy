@@ -15,7 +15,7 @@ export default function Home() {
         priority
       />
 
-      {/* Optional Overlay */}
+      {/*  Overlay */}
       <div className="absolute inset-0 bg-black/40 -z-10" />
 
       {/* Hero Content */}

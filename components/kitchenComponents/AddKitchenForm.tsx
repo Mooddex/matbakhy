@@ -8,6 +8,7 @@ import { addKitchenAction } from "@/app/actions/kitchen";
 import { useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
 import { Upload, Loader2 } from "lucide-react";
+import Cancel from "../CancelButton";
 
 
 
@@ -179,6 +180,7 @@ export default function AddKitchenForm() {
         {isSubmitting && <Loader2 className="animate-spin" size={18} />}
         {isSubmitting ? "Saving..." : "Update Kitchen"}
       </button>
+      <Cancel />
     </form>
   );
 }

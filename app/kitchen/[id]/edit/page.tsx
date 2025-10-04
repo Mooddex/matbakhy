@@ -4,11 +4,11 @@ import EditKitchenForm from "@/components/kitchenComponents/EditKitchenForm";
 import BackButton from "@/components/BackButton";
 
 interface EditKitchenProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditKitchen({ params }: EditKitchenProps) {
-  const { id } =await params;
+  const { id } = await params;
   const kitchen = await fetchKitchenById(id);
 
   if (!kitchen) {
@@ -16,8 +16,8 @@ export default async function EditKitchen({ params }: EditKitchenProps) {
   }
 
   return (
-    <section className="min-h-screen w-full  flex items-center justify-center py-12 px-4">
-      <div className="w-full max-w-3xl space-y-8">
+    <section className="min-h-screen w-full flex items-center justify-center py-12 px-4 pb-24 bg-gradient-to-b from-violet-900 to-violet-700">
+      <div className="w-full max-w-3xl space-y-8 py-12">
         <BackButton />
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white mb-2">
@@ -28,7 +28,7 @@ export default async function EditKitchen({ params }: EditKitchenProps) {
           </p>
         </div>
 
-        <div className="bg-violet-800  border border-violet-800 rounded-2xl shadow-md p-6">
+        <div className="bg-violet-800 border border-violet-800 rounded-2xl shadow-md p-6">
           <EditKitchenForm kitchen={kitchen} />
         </div>
       </div>

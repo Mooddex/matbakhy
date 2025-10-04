@@ -1,11 +1,9 @@
-/* eslint-disable */
 import { KitchenCardProps } from "@/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
-import { DeleteEditButtons } from "../DeleteEditButtons";
+import Image from "next/image";
 import Link from "next/link";
 
 interface ExtendedKitchenCardProps extends KitchenCardProps {
-  showActions?: boolean;
   id?: string;
 }
 
@@ -17,7 +15,6 @@ const KitchenCard = ({
   description,
   price,
   location,
-  showActions = true,
   id = "",
 }: ExtendedKitchenCardProps) => {
   const CardContent = () => (
@@ -30,7 +27,7 @@ const KitchenCard = ({
 
       {/* Image */}
       <div className="relative w-full h-48 mt-2">
-        <img
+        <Image
           src={imageUrl || "/default-kitchen.jpg"}
           alt={name ?? "Kitchen"}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded-lg"
@@ -83,7 +80,6 @@ const KitchenCard = ({
   return (
     <div className="h-full">
       <CardContent />
-      {showActions && id && <DeleteEditButtons id={id} />}
     </div>
   );
 };

@@ -2,7 +2,3 @@
 @import "tw-animate-css";
 @import "react-toastify/dist/ReactToastify.css";
 
-body {
-  background: linear-gradient(to right, #4c0519, #4c1d95); /* dark red → violet */
-  min-height: 100vh;
-}

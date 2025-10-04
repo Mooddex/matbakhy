@@ -32,9 +32,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className="min-h-screen flex flex-col">
           <SessionProvider>
-          <Nav />
-          <main className="flex-grow pt-24">
-            
+           <Nav />
+          <main className="flex-grow">
+           
             {children}
              <ToastContainer
           position="top-right"
