@@ -1,4 +1,4 @@
-import Hero from '../components/Hero';
+import Hero from '../components/layout/Hero';
 import backgroundimg from '@/img/background img.png';
 import Image from 'next/image';
 

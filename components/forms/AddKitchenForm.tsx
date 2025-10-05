@@ -8,7 +8,7 @@ import { addKitchenAction } from "@/app/actions/kitchen";
 import { useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
 import { Upload, Loader2 } from "lucide-react";
-import Cancel from "../CancelButton";
+import Cancel from "../ui/Buttons/CancelButton";
 
 
 

@@ -1,4 +1,4 @@
-import AllKitchens from "@/components/kitchenComponents/AllKitchens";
+import AllKitchens from "@/components/AllKitchens";
 
 const AllKitchensPage = () => {
   return ( 

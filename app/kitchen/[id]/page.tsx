@@ -1,6 +1,6 @@
 import { fetchKitchenById } from "@/app/actions/kitchen";
 import { notFound } from "next/navigation";
-import SingleKitchen from "@/components/kitchenComponents/Kitchen";
+import SingleKitchen from "@/components/Kitchen";
 export default async function KitchenPage({
   params,
 }: {

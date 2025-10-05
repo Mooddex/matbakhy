@@ -1,7 +1,7 @@
 import { fetchKitchenById } from "@/app/actions/kitchen";
 import { notFound } from "next/navigation";
-import EditKitchenForm from "@/components/kitchenComponents/EditKitchenForm";
-import BackButton from "@/components/BackButton";
+import EditKitchenForm from "@/components/forms/EditKitchenForm";
+import BackButton from "@/components/ui/Buttons/BackButton";
 
 interface EditKitchenProps {
   params: Promise<{ id: string }>;

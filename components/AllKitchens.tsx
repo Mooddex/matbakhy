@@ -1,6 +1,6 @@
 import Image from "next/image";
 import homeBG from '@/img/bg.png';
-import KitchensGrid from "@/components/kitchenComponents/KitchensGrid";
+import KitchensGrid from "@/components/ui/Cards/KitchensGrid";
 
 export default async function AllKitchens() {
   return (

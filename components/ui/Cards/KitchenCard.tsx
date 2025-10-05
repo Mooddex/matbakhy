@@ -2,6 +2,7 @@ import { KitchenCardProps } from "@/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import LikeButton from "../Buttons/LikeButton";
 
 interface ExtendedKitchenCardProps extends KitchenCardProps {
   id?: string;
@@ -28,6 +29,7 @@ const KitchenCard = ({
       {/* Image */}
       <div className="relative w-full h-48 mt-2">
         <Image
+          fill
           src={imageUrl || "/default-kitchen.jpg"}
           alt={name ?? "Kitchen"}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 rounded-lg"
@@ -61,7 +63,11 @@ const KitchenCard = ({
           <Phone size={16} className="text-violet-600" />
           <span>{phoneNumber}</span>
         </div>
+        
       </div>
+      <div className="flex items-center">
+           <LikeButton />
+        </div>
     </div>
   );
 
