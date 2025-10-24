@@ -1,0 +1,33 @@
+import Image from "next/image";
+import homeBG from '@/img/bg.png';
+import KitchensGrid from "@/components/ui/Cards/KitchensGrid";
+
+export default async function AllKitchens() {
+  return (
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <Image
+        src={homeBG}
+        alt="Background"
+        fill
+        style={{ objectFit: 'cover' }}
+        className="absolute inset-0 -z-10 brightness-90"
+        priority
+      />
+
+      {/* Optional: A light gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-white/40 -z-10" />
+
+      {/* Main Content */}
+      <div className="relative z-10 px-6 pt-32 pb-20 text-gray-900">
+        {/* Hero */}
+        <section className="text-center mb-16">
+          <h1 className="text-5xl font-extrabold text-violet-900 drop-shadow-sm mb-4">
+            Find Your <span className="text-violet-600">Perfect Fit</span>
+          </h1>
+          <KitchensGrid />
+        </section>
+      </div>
+    </div>
+  );
+}
