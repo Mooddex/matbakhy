@@ -47,13 +47,13 @@ export default function AddKitchenForm() {
       className="max-w-2xl mx-auto space-y-6 p-6 rounded-2xl border border-violet-800 bg-violet-950 shadow-md"
     >
       <h2 className="text-2xl font-semibold text-white">
-        Add Kitchen
+        Add Your New Kitchen
       </h2>
 
       {/* Name */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-violet-200 mb-1">
-          Name
+          Username
         </label>
         <input
           id="name"
@@ -178,7 +178,7 @@ export default function AddKitchenForm() {
         }`}
       >
         {isSubmitting && <Loader2 className="animate-spin" size={18} />}
-        {isSubmitting ? "Saving..." : "Update Kitchen"}
+        {isSubmitting ? "Saving..." : "Add a New Kitchen"}
       </button>
       <Cancel />
     </form>

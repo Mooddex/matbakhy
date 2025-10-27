@@ -13,7 +13,7 @@ const { data: session, status } = useSession();
 
 
   return (
-<nav className="sticky top-1 z-50 bg-white/70 backdrop-blur-lg shadow-xl rounded-full px-6 py-3 flex items-center gap-6 border border-violet-200 mx-auto w-max">
+<nav className="top-1 z-50 bg-white/70 backdrop-blur-lg shadow-xl  px-6 py-3 flex items-center gap-6  mx-auto w-max">
       {/* shared pages in the navbar */}
       <Link href="/" className="flex items-center gap-2">
         <Image src={loogo} alt="LOGO" width={30} height={30} />

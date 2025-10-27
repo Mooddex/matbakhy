@@ -2,7 +2,7 @@ import { KitchenCardProps } from "@/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import LikeButton from "../Buttons/LikeButton";
+// import LikeButton from "../Buttons/LikeButton";
 
 interface ExtendedKitchenCardProps extends KitchenCardProps {
   id?: string;
@@ -65,9 +65,9 @@ const KitchenCard = ({
         </div>
         
       </div>
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
            <LikeButton />
-        </div>
+        </div> */}
     </div>
   );
 
