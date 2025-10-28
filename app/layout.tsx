@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en"suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-black`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
         <div className="">
           <SessionProvider>
            <Nav />
