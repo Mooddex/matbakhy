@@ -2,3 +2,7 @@
 @import "tw-animate-css";
 @import "react-toastify/dist/ReactToastify.css";
 
+body {
+  @apply bg-transparent;
+}
+

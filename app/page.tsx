@@ -4,19 +4,16 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen w-full">
-      {/* Background Image */}
-      <Image
-        src={backgroundimg}
-        alt="Background"
-        fill
-        style={{ objectFit: 'cover' }}
-        className="absolute inset-0 -z-10"
-        priority
-      />
+    <div className="relative min-h-screen w-full bg-transparent">
 
-      {/*  Overlay */}
-      <div className="absolute inset-0 bg-black/40 -z-10" />
+<div className="relative h-full w-full">
+  <Image
+    src={backgroundimg}
+    alt="Background"
+    fill
+    className="absolute inset-0 -z-10"
+    priority
+  />
 
       {/* Hero Content */}
       <div className="relative z-10 flex items-center justify-center min-h-screen pt-28">
@@ -26,6 +23,7 @@ export default function Home() {
           ctaText="Get Started"
         />
       </div>
+    </div>
     </div>
   );
 }

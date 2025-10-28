@@ -29,11 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en"suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="min-h-screen flex flex-col">
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-black`}>
+        <div className="">
           <SessionProvider>
            <Nav />
-          <main className="flex-grow">
+          <main className="">
            
             {children}
              <ToastContainer
