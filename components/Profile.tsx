@@ -1,6 +1,9 @@
+import ProfileCard from "./profilePage/ProfileCard";
 
 export default function Profile() {
-    return(
-        <div>Profile Component</div>
-    )
+  return (
+    <div>
+     <ProfileCard />
+    </div>
+  );
 }
