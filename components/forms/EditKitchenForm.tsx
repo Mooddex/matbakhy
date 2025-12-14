@@ -10,11 +10,11 @@ import { useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
 import { Upload, Loader2 } from "lucide-react";
 
-interface AddProductFormProps {
+interface EditProductFormProps {
   kitchen: Kitchen;
 }
 
-export default function EditKitchenForm({ kitchen }: AddProductFormProps) {
+export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
   const router = useRouter();
   const {
     register,
