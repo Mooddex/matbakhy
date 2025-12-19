@@ -1,6 +1,8 @@
 import Image from "next/image";
 import BackButton from "../ui/Buttons/BackButton";
 import { Button } from "../ui/Buttons/button";
+import Link from "next/link";
+import { Plus } from "lucide-react";
 
 interface ProfileCardProps {
   userName?: string;
@@ -49,7 +51,14 @@ export default function ProfileCard({
               Get In Touch
             </Button>
             </a> 
+              <Link href="/kitchen/new" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+        <Plus size={18} />
+        <span className="">
+          Add a New Kitchen
+          </span>
+      </Link>
           </div>
+         
         </div>
 
        

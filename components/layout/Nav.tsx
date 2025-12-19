@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import loogo from "@/img/loogo.png";
-import { Home, LogIn,  UserPlus, Plus, User  } from "lucide-react";
+import { Home, LogIn,  UserPlus, User  } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 
 const Nav = () => {
@@ -28,12 +28,7 @@ const { data: session, status } = useSession();
         (
           // signed in user
           <>
-          <Link href="/kitchen/new" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
-        <Plus size={18} />
-        <span className="hidden md:inline">
-          Add New
-          </span>
-      </Link>
+        
     
       <Link href="/profile" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <User size={18} />
