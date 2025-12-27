@@ -8,8 +8,8 @@ interface FooterProps {
 
 const Footer = ({ title, subtitle }: FooterProps) => {
   return (
-     <footer className="bg-violet-900 text-white px-6 py-8">
-      <div className="max-w-screen-xl mx-auto text-center space-y-4">
+     <footer className="bg-violet-900 text-white px-6 py-8 ">
+      <div className="max-w-7xl mx-auto text-center space-y-4">
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-sm text-gray-300">{subtitle}</p>
         <div className="flex justify-center gap-6 text-white text-xl">
