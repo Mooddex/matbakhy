@@ -3,7 +3,8 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
-import { signIn, getSession } from 'next-auth/react';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '@/lib/firebase-config';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Eye, EyeOff, Mail, Lock, ShieldCheck, AlertCircle, Sparkles, CheckCircle } from 'lucide-react';
 
@@ -26,10 +27,8 @@ export function SignInForm() {
     setError('');
     
     try {
-      await signIn('google', { 
-        callbackUrl,
-        redirect: true 
-      });
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
       setSuccess('Google sign-in was successful!');
       router.push('/');
     } catch (error) {

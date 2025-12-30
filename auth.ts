@@ -1,8 +1,2 @@
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
- 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [
-    Google,
-  ],
-})
+// Firebase Auth is now handled client-side
+// This file can be removed or repurposed if needed
