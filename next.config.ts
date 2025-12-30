@@ -1,9 +1,29 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+
+const nextConfig :NextConfig = {
   images: {
-    domains: ['res.cloudinary.com', "images.unsplash.com", "placecats.com"], 
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        // Optional: you can restrict specific paths with pathname
+        // pathname: '/path/to/images/**', 
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        // Use '**' to allow any path under the hostname
+       
+      },
+       {
+        protocol: 'https',
+        hostname: 'placecats.com',
+        // Use '**' to allow any path under the hostname
+       
+      },
+    ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

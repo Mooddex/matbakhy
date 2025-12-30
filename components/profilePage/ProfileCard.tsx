@@ -1,6 +1,8 @@
-import Image from "next/image";
-import BackButton from "../ui/Buttons/BackButton";
 import { Button } from "../ui/Buttons/button";
+import Image from "next/image";
+import pic from "@/assets/profilepic.jpeg";
+import KitchensGrid from "../ui/Cards/KitchensGrid";
+
 
 interface ProfileCardProps {
   userName?: string;
@@ -8,52 +10,49 @@ interface ProfileCardProps {
 }
 
 export default function ProfileCard({
-  userName = "Mahmoud",
-  profileImage = "https://placecats.com/300/200",
+  userName = "Mahmoud salama",
 }: ProfileCardProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-1 sm:p-6 lg:p-8">
-      {/* Header Section */}
-      <div className="max-w-5xl mx-auto">
-        {/* Back Button */}
-        <div className="mt-24">
-          <BackButton />
-        </div>
-
-        {/* Profile Section */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-3 sm:p-10 mb-8 border border-purple-100">
-          {/* Profile Picture */}
-          <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-6">
-            <Image
-              src={profileImage}
-              alt={`${userName}'s profile picture`}
-              width={192}
-              height={192}
-              className="rounded-full object-cover border-4 border-purple-400 shadow-lg ring-4 ring-purple-100"
-              priority
-            />
-          </div>
-
-          {/* User Info */}
-          <div className="text-center space-y-5">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
-              {userName}
-            </h2>
-            
-            {/* Contact Button */}
-           <a href="tel:01066151547">
-            <Button
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold px-10 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              variant="default"
-            >
-              Get In Touch
+    <section className="min-h-screen">
+     
+      <div className=" mt-30 space-y-3">
+<div className="grid lg:grid-cols-3 justify-items-center gap-1.5  ">
+        <Image
+          src={pic}
+          alt="profile picture"
+          width={200}
+          height={120}
+          className="rounded-4xl  border-transparent "
+        />
+        <div className="space-y-3 flex flex-col justify-center ">
+          <h1 className="text-2xl sm:text-4xl font-bold text-center">{userName}</h1>
+          <span className="max-w-lg text-center sm:text-2xl">
+            Lorem ipsum dol adipisicing elit. Quibusdam sunt tempore
+            voluptateaperiam facere quo rerum
+          </span>
+          <div className="flex justify-center gap-2 ">
+            <Button variant="destructive" className="bg-black px-8">
+              Follow
             </Button>
-            </a> 
+            <Button variant="outline" className="">
+              Get in touch
+            </Button>
           </div>
         </div>
-
-       
       </div>
-    </div>
+
+      <div className=" grid gap-3 justify-items-center ">
+        <div className=" ">
+          <ul className="flex gap-8 ">
+            <li>work</li>
+            <li>Location</li>
+            <li>About</li>
+          </ul>
+        </div>
+        <KitchensGrid />
+      </div>
+      </div>
+      
+    </section>
   );
 }
