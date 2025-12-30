@@ -1,17 +1,13 @@
 // middleware.ts
-import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
+// Temporarily disabled auth checks while switching to Firebase Auth
 import { NextResponse } from "next/server";
 
 // Updated routes to match your actual structure
 const publicRoutes = ["/", "/explore"];
-const authRoutes = ["/auth/signin", "/auth/signup", "/auth/error"]; // Updated paths
+const authRoutes = ["/signin", "/signup"]; // Updated paths
 const privateRoutes = ["/kitchen/new", "/profile", "/dashboard"];
 
-const { auth } = NextAuth(authConfig);
-
-export default auth(async (req) => {
-  const isLoggedIn = !!req.auth;
+export default async function middleware(req: any) {
   const { nextUrl } = req;
   
   const isPublicRoute = publicRoutes.some(route => 
@@ -24,18 +20,9 @@ export default auth(async (req) => {
     nextUrl.pathname.startsWith(route)
   );
 
-  // Redirect authenticated users away from auth pages
-  if (isLoggedIn && isAuthRoute) {
-    return NextResponse.redirect(new URL("/", req.url)); // Changed from /dashboard
-  }
-
-  // Redirect unauthenticated users from private routes to login
-  if (!isLoggedIn && isPrivateRoute) {
-    return NextResponse.redirect(new URL("/auth/signin", req.url)); // Updated path
-  }
-
+  // For now, allow all routes - auth will be handled client-side with Firebase
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: [

@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import loogo from "@/img/loogo.png";
 import { Home, LogIn,  UserPlus, User  } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase-config";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 const Nav = () => {
-const { data: session, status } = useSession();
+const { user, loading } = useAuth();
 
-  if (status === "loading") return null;
+  if (loading) return null;
 
 
   return (
@@ -24,7 +26,7 @@ const { data: session, status } = useSession();
       </Link>
      
       {
-        session? 
+        user? 
         (
           // signed in user
           <>
@@ -35,7 +37,7 @@ const { data: session, status } = useSession();
         <span className="hidden md:inline">profile</span>
       </Link> 
       <button
-       onClick={() => signOut({ redirectTo: "/" })}
+       onClick={() => signOut(auth)}
         className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl transition font-semibold">
         Sign Out
       </button> 

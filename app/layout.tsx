@@ -4,7 +4,7 @@ import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 
-import { SessionProvider } from "next-auth/react";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
@@ -29,11 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en"suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <div className="">
-          <SessionProvider>
+          <AuthProvider>
            <Nav />
-          <main className="">
+          <main className="min-h-screen flex flex-col">
            
             {children}
              <ToastContainer
@@ -50,7 +50,7 @@ export default function RootLayout({
         />
             
             </main>
-          </SessionProvider>
+          </AuthProvider>
           <Footer
             title="Powered by Kitchen Makers"
             subtitle="Join a growing network of professionals and homeowners bringing kitchens to life in Egypt."

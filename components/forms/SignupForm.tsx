@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '@/lib/firebase-config';
 import { useRouter } from 'next/navigation';
 import { ShieldCheck, AlertCircle, CheckCircle, UserPlus } from 'lucide-react';
 
@@ -17,10 +18,8 @@ export default function SignUpForm() {
   const handleGoogleSignUp = async () => {
     setIsLoading(true);
     try {
-      await signIn('google', { 
-        callbackUrl: '/',
-        redirect: true 
-      });
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
         setSuccess('Google sign-up successful!');
         router.push('/');
     } catch (error) {
