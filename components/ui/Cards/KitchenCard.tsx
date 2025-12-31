@@ -2,7 +2,6 @@ import { KitchenCardProps } from "@/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-// import LikeButton from "../Buttons/LikeButton";
 
 interface ExtendedKitchenCardProps extends KitchenCardProps {
   id?: string;
