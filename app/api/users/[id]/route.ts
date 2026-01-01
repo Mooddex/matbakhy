@@ -3,12 +3,13 @@ import connectDB from "@/lib/db/db";
 import User from "@/lib/db/models/Users";
 
 type Params = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function GET(_: Request, { params }: Params) {
   await connectDB();
-  const user = await User.findById(params.id).select("-password");
+  const { id } = await params;
+  const user = await User.findById(id).select("-password");
 
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -18,9 +19,10 @@ export async function GET(_: Request, { params }: Params) {
 
 export async function PATCH(req: Request, { params }: Params) {
   await connectDB();
+  const { id } = await params;
   const body = await req.json();
 
-  const user = await User.findByIdAndUpdate(params.id, body, {
+  const user = await User.findByIdAndUpdate(id, body, {
     new: true,
   }).select("-password");
 
@@ -32,7 +34,8 @@ export async function PATCH(req: Request, { params }: Params) {
 
 export async function DELETE(_: Request, { params }: Params) {
   await connectDB();
-  const user = await User.findByIdAndDelete(params.id);
+  const { id } = await params;
+  const user = await User.findByIdAndDelete(id);
 
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });

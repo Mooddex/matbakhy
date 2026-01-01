@@ -4,11 +4,7 @@
 
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  AlertCircle,
-  Sparkles,
-  CheckCircle,
-} from "lucide-react";
+import { AlertCircle, Sparkles, CheckCircle } from "lucide-react";
 import GoogleAuth from "../auth/GoogleAuth";
 
 interface SignInFormData {
@@ -86,11 +82,10 @@ export function SignInForm() {
 
             {/* Google Sign In with Hover Effects */}
             <GoogleAuth
-              isLoading={isLoading}
               onSuccess={(dbUser) => {
                 console.log("User signed in and saved to DB:", dbUser);
                 setSuccess("Google sign-in successful!");
-                router.push("/"); // redirect after sign-in
+                router.push("/");
               }}
               onError={(err) => {
                 console.error(err);

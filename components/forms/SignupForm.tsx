@@ -6,7 +6,6 @@ import {  AlertCircle, CheckCircle, UserPlus } from 'lucide-react';
 import GoogleAuth from '../auth/GoogleAuth';
 
 export default function SignUpForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -68,17 +67,16 @@ export default function SignUpForm() {
 
             {/* Google Auth Button */}
             <GoogleAuth
-              isLoading={isLoading}
-              onSuccess={(dbUser) => {
-                console.log('User signed up and saved to DB:', dbUser);
-                setSuccess('Google sign-up successful!');
-                router.push('/');
-              }}
-              onError={(err) => {
-                console.error(err);
-                setError('Google sign-up failed. Please try again.');
-              }}
-            />
+  onSuccess={(dbUser) => {
+    console.log('User signed up and saved to DB:', dbUser);
+    setSuccess('Google sign-up successful!');
+    router.push('/');
+  }}
+  onError={(err) => {
+    console.error(err);
+    setError('Google sign-up failed. Please try again.');
+  }}
+/>
 
             {/* Sign In Link */}
             <div className="mt-8 text-center">
