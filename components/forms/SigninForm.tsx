@@ -1,12 +1,15 @@
 /* eslint-disable */
 
-'use client';
+"use client";
 
-import React, { useState, Suspense } from 'react';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '@/lib/firebase-config';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Eye, EyeOff, Mail, Lock, ShieldCheck, AlertCircle, Sparkles, CheckCircle } from 'lucide-react';
+import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  AlertCircle,
+  Sparkles,
+  CheckCircle,
+} from "lucide-react";
+import GoogleAuth from "../auth/GoogleAuth";
 
 interface SignInFormData {
   email: string;
@@ -14,30 +17,13 @@ interface SignInFormData {
 }
 
 export function SignInForm() {
- const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const [success, setSuccess] = useState<string>('');
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get('callbackUrl') || '/';
-
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    setError('');
-    
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      setSuccess('Google sign-in was successful!');
-      router.push('/');
-    } catch (error) {
-      console.error('Google sign in error:', error);
-      setError('Google sign-in failed. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden flex items-center justify-center p-4">
@@ -62,8 +48,12 @@ export function SignInForm() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-              <p className="text-white/80 text-lg">Sign in to continue your journey</p>
+              <h1 className="text-3xl font-bold text-white mb-2">
+                Welcome Back
+              </h1>
+              <p className="text-white/80 text-lg">
+                Sign in to continue your journey
+              </p>
             </div>
           </div>
 
@@ -73,7 +63,9 @@ export function SignInForm() {
               <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex items-start space-x-3 animate-in slide-in-from-top duration-300 backdrop-blur-sm">
                 <AlertCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-red-300 font-medium">Authentication Error</p>
+                  <p className="text-sm text-red-300 font-medium">
+                    Authentication Error
+                  </p>
                   <p className="text-sm text-red-200 mt-1">{error}</p>
                 </div>
               </div>
@@ -84,31 +76,33 @@ export function SignInForm() {
               <div className="mb-6 bg-purple-500/10 border border-purple-500/30 rounded-2xl p-4 flex items-start space-x-3 animate-in slide-in-from-top duration-300 backdrop-blur-sm">
                 <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-purple-300 font-medium">Success!</p>
+                  <p className="text-sm text-purple-300 font-medium">
+                    Success!
+                  </p>
                   <p className="text-sm text-purple-200 mt-1">{success}</p>
                 </div>
               </div>
             )}
 
             {/* Google Sign In with Hover Effects */}
-            <button
-              type="button"
-              onClick={handleGoogleSignIn}
-              disabled={isLoading}
-              className="group w-full mb-6 bg-white/5 backdrop-blur-sm border border-white/20 hover:border-white/40 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/10 hover:shadow-xl hover:shadow-purple-500/25 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <div className="p-2 bg-white rounded-full group-hover:rotate-12 transition-transform duration-300">
-                <ShieldCheck className="w-5 h-5 text-red-500" />
-              </div>
-              <span className="text-lg">{isLoading ? 'Signing in...' : 'Continue with Google'}</span>
-            </button>
-
+            <GoogleAuth
+              isLoading={isLoading}
+              onSuccess={(dbUser) => {
+                console.log("User signed in and saved to DB:", dbUser);
+                setSuccess("Google sign-in successful!");
+                router.push("/"); // redirect after sign-in
+              }}
+              onError={(err) => {
+                console.error(err);
+                setError("Google sign-in failed. Please try again.");
+              }}
+            />
             {/* Enhanced Sign Up Link */}
             <div className="mt-8 text-center">
               <p className="text-white/70 text-base">
-                Don't have an account?{' '}
-                <a 
-                  href="/signup" 
+                Don't have an account?{" "}
+                <a
+                  href="/signup"
                   className="font-semibold text-purple-300 hover:text-purple-200 transition-all duration-200 hover:underline"
                 >
                   Create account
@@ -121,12 +115,18 @@ export function SignInForm() {
         {/* Enhanced Footer */}
         <div className="text-center mt-8">
           <p className="text-sm text-white/50 leading-relaxed">
-            By signing in, you agree to our{' '}
-            <a href="/terms" className="text-purple-300 hover:text-purple-200 transition-colors hover:underline">
+            By signing in, you agree to our{" "}
+            <a
+              href="/terms"
+              className="text-purple-300 hover:text-purple-200 transition-colors hover:underline"
+            >
               Terms of Service
-            </a>
-            {' '}and{' '}
-            <a href="/privacy" className="text-purple-300 hover:text-purple-200 transition-colors hover:underline">
+            </a>{" "}
+            and{" "}
+            <a
+              href="/privacy"
+              className="text-purple-300 hover:text-purple-200 transition-colors hover:underline"
+            >
               Privacy Policy
             </a>
           </p>
@@ -135,4 +135,3 @@ export function SignInForm() {
     </div>
   );
 }
-

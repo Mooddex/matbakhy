@@ -7,7 +7,10 @@ import { User } from "@/types/User";
 interface ProfileCardProps {
   user :User ;
 }
+
+
 export default function ProfileCard({user}: ProfileCardProps) {
+
   return (
     <section className="min-h-screen">
      
