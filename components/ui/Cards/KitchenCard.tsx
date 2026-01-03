@@ -1,4 +1,4 @@
-import { KitchenCardProps } from "@/types/Kitchens";
+import { KitchenCardProps } from "@/lib/types/Kitchens";
 import { User, Phone, MapPin, DollarSign } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

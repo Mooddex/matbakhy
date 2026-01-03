@@ -1,7 +1,7 @@
 
 import { fetchKitchens } from "@/app/actions/kitchen";
 import KitchenCard from "./KitchenCard";
-import { Kitchen } from "@/types/Kitchens";
+import { Kitchen } from "@/lib/types/Kitchens";
 
 export default async function KitchensGrid({ }) {
   
