@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "@/lib/firebase-config";
-import { User } from "@/types/User";
+import { auth } from "@/lib/firebase/firebase-config";
+import { User } from "@/lib/types/User";
 
 interface GoogleAuthProps {
   isLoading?: boolean; // optional, parent can control

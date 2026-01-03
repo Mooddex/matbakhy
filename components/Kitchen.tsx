@@ -3,7 +3,7 @@ import Link from "next/link";
 import BackButton from "./ui/Buttons/BackButton";
 import DeleteButtons from "./ui/Buttons/DeleteButtons";
 import Image from "next/image";
-import { Kitchen } from "@/types/Kitchens";
+import { Kitchen } from "@/lib/types/Kitchens";
 
 interface SingleKitchenProps {
   Kitchen: Kitchen;

@@ -4,7 +4,7 @@ import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 
-import { AuthProvider } from "@/components/auth/AuthProvider";
+import { AuthProvider } from "@/lib/firebase/auth/AuthProvider";
 import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
