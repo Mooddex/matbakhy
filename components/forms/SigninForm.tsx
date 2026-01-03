@@ -1,29 +1,20 @@
-/* eslint-disable */
 
 "use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import {  Sparkles,  } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import GoogleAuth from "../../lib/firebase/auth/GoogleAuth";
 import { Input } from "../ui/input";
 import signIn from "@/lib/firebase/auth/signin";
 import { toast } from "react-toastify";
 
-
-
 export function SignInForm() {
- const [email, setEmail] = useState("");
-
-  //* Create state variables for email and password
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  //* Create a router variable
   const router = useRouter();
 
-  //* Create a function to handle the form
   const handleForm = async (event: React.FormEvent) => {
-    //* Prevent the default form action
     event.preventDefault();
 
     const { result, error } = await signIn(email, password);
@@ -33,11 +24,11 @@ export function SignInForm() {
       return console.log(error);
     }
 
-    //* else successful
     toast.success("Sign In successful!");
     console.log(result);
     return router.push("/");
   };
+
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden flex items-center justify-center p-4">
       {/* Animated Background Elements */}
@@ -68,51 +59,48 @@ export function SignInForm() {
                 Sign in to continue your journey
               </p>
             </div>
-             <form onSubmit={handleForm}>
-          <div className="text-start flex flex-col gap-6 text-white/70">
-            <div className="grid gap-2">
-              <label htmlFor="email">Email</label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                className="border border-white/20  shadow-2xl"
-                onChange={(e)=>setEmail(e.target.value)}
-              />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <label htmlFor="password">Password</label>
-                <a 
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-              <Input id="password"
-               type="password"
-               placeholder="*******"
-               required
-               className="border border-white/20 shadow-2xl"
-               onChange={(e)=>setPassword(e.target.value)}
-              />
-            </div>
           </div>
-           <button
-              type="submit"
-              className="text-center text-white p-3 rounded-2xl bg-violet-500 hover:bg-violet-700 my-3 w-full cursor-pointer"
+
+          {/* Form Body - Moved Outside Header */}
+          <div className="p-8">
+            <form onSubmit={handleForm}>
+              <div className="text-start flex flex-col gap-6 text-white/70">
+                <div className="grid gap-2">
+                  <label htmlFor="email">Email</label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                    value={email}
+                    className="border border-white/20 shadow-2xl"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <label htmlFor="password">Password</label>
+                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="*******"
+                    required
+                    value={password}
+                    className="border border-white/20 shadow-2xl"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="text-center text-white p-3 rounded-2xl bg-violet-500 hover:bg-violet-700 my-3 w-full cursor-pointer transition-colors duration-200"
               >
                 Sign In
               </button>
-        </form>
-          </div>
+            </form>
 
-          <div className="p-8">
-           
-
-            {/* Google Sign In with Hover Effects */}
+            {/* Google Sign In */}
             <GoogleAuth
               onSuccess={(dbUser) => {
                 console.log("User signed in and saved to DB:", dbUser);
@@ -122,10 +110,11 @@ export function SignInForm() {
                 console.error(err);
               }}
             />
-            {/* Enhanced Sign Up Link */}
+
+            {/* Sign Up Link */}
             <div className="mt-8 text-center">
               <p className="text-white/70 text-base">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <a
                   href="/signup"
                   className="font-semibold text-purple-300 hover:text-purple-200 transition-all duration-200 hover:underline"

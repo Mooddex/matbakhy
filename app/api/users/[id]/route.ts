@@ -3,22 +3,22 @@ import connectDB from "@/lib/db/db";
 import User from "@/lib/models/Users";
 import mongoose from "mongoose";
 
-type Params = {
-  params: { id: string };
-};
-
 /**
  * GET user by Firebase UID
  * /api/users/:firebaseUid
- */export async function GET(
+ */
+export async function GET(
   _: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
+    // Await params in Next.js 15+
+    const { id } = await params;
+
     const user = await User.findOne({
-      firebaseUid: params.id,
+      firebaseUid: id,
     }).select("-password");
 
     if (!user) {
@@ -38,19 +38,20 @@ type Params = {
   }
 }
 
-
 /**
  * PATCH user by Mongo ObjectId
  * /api/users/:id
  */
 export async function PATCH(
   req: Request,
-  { params }: Params
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    if (!mongoose.Types.ObjectId.isValid(params.id)) {
+    const { id } = await params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
         { error: "Invalid user id" },
         { status: 400 }
@@ -60,7 +61,7 @@ export async function PATCH(
     const body = await req.json();
 
     const user = await User.findByIdAndUpdate(
-      params.id,
+      id,
       body,
       { new: true }
     ).select("-password");
@@ -88,19 +89,21 @@ export async function PATCH(
  */
 export async function DELETE(
   _: Request,
-  { params }: Params
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    if (!mongoose.Types.ObjectId.isValid(params.id)) {
+    const { id } = await params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
         { error: "Invalid user id" },
         { status: 400 }
       );
     }
 
-    const user = await User.findByIdAndDelete(params.id);
+    const user = await User.findByIdAndDelete(id);
 
     if (!user) {
       return NextResponse.json(

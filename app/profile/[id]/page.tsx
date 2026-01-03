@@ -6,9 +6,10 @@ import { User } from "@/lib/types/User";
 const ProfilePage = async ({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) => {
-  const { id } = params; // firebaseUid
+  // Await params in Next.js 15+
+  const { id } = await params; // firebaseUid
 
   let user: User | null = null;
 
