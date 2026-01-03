@@ -81,6 +81,7 @@ export default function SignUpForm() {
                 <div className="grid gap-2">
                   <label htmlFor="email">Email</label>
                   <Input
+                  value={email}
                     id="email"
                     type="email"
                     placeholder="m@example.com"

@@ -77,7 +77,7 @@ export function SignInForm() {
                 type="email"
                 placeholder="m@example.com"
                 required
-                className="border-0 shadow-2xl"
+                className="border border-white/20  shadow-2xl"
                 onChange={(e)=>setEmail(e.target.value)}
               />
             </div>
@@ -95,7 +95,7 @@ export function SignInForm() {
                type="password"
                placeholder="*******"
                required
-               className="border-0 shadow-2xl"
+               className="border border-white/20 shadow-2xl"
                onChange={(e)=>setPassword(e.target.value)}
               />
             </div>

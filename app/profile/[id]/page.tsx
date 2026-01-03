@@ -8,7 +8,7 @@ const ProfilePage = async ({
 }: {
   params: { id: string };
 }) => {
-  const { id } =await params;
+  const { id } = params; // firebaseUid
 
   let user: User | null = null;
 
