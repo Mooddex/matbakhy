@@ -1,4 +1,4 @@
-import { User } from "@/types/User";
+import { User } from "@/lib/types/User";
 
 // create
 export const createUser = async (data: User) => {

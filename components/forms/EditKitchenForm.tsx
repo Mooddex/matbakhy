@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { EditKitchenSchema, TEditKitchenSchema } from "@/lib/validators";
-import { Kitchen } from "@/types/Kitchens";
+import { Kitchen } from "@/lib/types/Kitchens";
 import { updateKitchenAction } from "@/app/actions/kitchen";
 import { useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";

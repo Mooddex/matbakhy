@@ -5,8 +5,8 @@ import Link from "next/link";
 import loogo from "@/img/loogo.png";
 import { Home, LogIn,  UserPlus, User  } from "lucide-react";
 import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase-config";
-import { useAuth } from "@/components/auth/AuthProvider";
+import { auth } from "@/lib/firebase/firebase-config";
+import { useAuth } from "@/lib/firebase/auth/AuthProvider";
 
 const Nav = () => {
 const { user, loading } = useAuth();
@@ -32,7 +32,7 @@ const { user, loading } = useAuth();
           <>
         
     
-      <Link href="/profile" className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
+      <Link href={`/profile/${user.uid}`} className="flex items-center gap-1 text-violet-800 hover:text-violet-600 transition">
         <User size={18} />
         <span className="hidden md:inline">profile</span>
       </Link> 

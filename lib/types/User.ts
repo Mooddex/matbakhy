@@ -1,18 +1,19 @@
-
+// In @/lib/types/User.ts (or wherever your User type is)
 export interface User {
-  id: string;
+  firebaseUid: string; // Changed from 'id'
+  email: string;
   name: string;
   username: string;
-  email: string;
+  avatar: string;
   phone: string;
   location: string;
-  joinedDate: string;
-  avatar: string;
   bio: string;
+  provider?: string; // Added
   stats: {
     totalKitchens: number;
     totalViews: number;
     rating: number;
     completedOrders: number;
   };
-};
+  // Remove joinedDate - handled by MongoDB timestamps
+}

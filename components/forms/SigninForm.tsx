@@ -3,26 +3,43 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { AlertCircle, Sparkles, CheckCircle } from "lucide-react";
-import GoogleAuth from "../auth/GoogleAuth";
+import { useRouter } from "next/navigation";
+import {  Sparkles,  } from "lucide-react";
+import GoogleAuth from "../../lib/firebase/auth/GoogleAuth";
+import { Input } from "../ui/input";
+import signIn from "@/lib/firebase/auth/signin";
+import { toast } from "react-toastify";
 
-interface SignInFormData {
-  email: string;
-  password: string;
-}
+
 
 export function SignInForm() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
+ const [email, setEmail] = useState("");
 
+  //* Create state variables for email and password
+  const [password, setPassword] = useState("");
+
+  //* Create a router variable
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
+  //* Create a function to handle the form
+  const handleForm = async (event: React.FormEvent) => {
+    //* Prevent the default form action
+    event.preventDefault();
+
+    const { result, error } = await signIn(email, password);
+
+    if (error) {
+      toast.error("Sign In failed!");
+      return console.log(error);
+    }
+
+    //* else successful
+    toast.success("Sign In successful!");
+    console.log(result);
+    return router.push("/");
+  };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden flex items-center justify-center p-4">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
@@ -36,7 +53,7 @@ export function SignInForm() {
       <div className="relative z-10 max-w-md w-full">
         <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           {/* Glassmorphism Header */}
-          <div className="relative bg-gradient-to-r from-purple-600/80 via-blue-600/80 to-indigo-600/80 backdrop-blur-sm px-8 py-8 text-center">
+          <div className="relative bg-linear-to-r from-purple-600/80 via-blue-600/80 to-indigo-600/80 backdrop-blur-sm px-8 py-8 text-center">
             <div className="absolute inset-0 bg-white/10"></div>
             <div className="relative z-10">
               <div className="mb-4 flex justify-center">
@@ -51,45 +68,58 @@ export function SignInForm() {
                 Sign in to continue your journey
               </p>
             </div>
+             <form onSubmit={handleForm}>
+          <div className="text-start flex flex-col gap-6 text-white/70">
+            <div className="grid gap-2">
+              <label htmlFor="email">Email</label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+                className="border-0 shadow-2xl"
+                onChange={(e)=>setEmail(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <label htmlFor="password">Password</label>
+                <a 
+                  href="#"
+                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+              <Input id="password"
+               type="password"
+               placeholder="*******"
+               required
+               className="border-0 shadow-2xl"
+               onChange={(e)=>setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+           <button
+              type="submit"
+              className="text-center text-white p-3 rounded-2xl bg-violet-500 hover:bg-violet-700 my-3 w-full cursor-pointer"
+              >
+                Sign In
+              </button>
+        </form>
           </div>
 
           <div className="p-8">
-            {/* Error Message with Animation */}
-            {error && (
-              <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-2xl p-4 flex items-start space-x-3 animate-in slide-in-from-top duration-300 backdrop-blur-sm">
-                <AlertCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm text-red-300 font-medium">
-                    Authentication Error
-                  </p>
-                  <p className="text-sm text-red-200 mt-1">{error}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Success Message with Animation */}
-            {success && (
-              <div className="mb-6 bg-purple-500/10 border border-purple-500/30 rounded-2xl p-4 flex items-start space-x-3 animate-in slide-in-from-top duration-300 backdrop-blur-sm">
-                <CheckCircle className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm text-purple-300 font-medium">
-                    Success!
-                  </p>
-                  <p className="text-sm text-purple-200 mt-1">{success}</p>
-                </div>
-              </div>
-            )}
+           
 
             {/* Google Sign In with Hover Effects */}
             <GoogleAuth
               onSuccess={(dbUser) => {
                 console.log("User signed in and saved to DB:", dbUser);
-                setSuccess("Google sign-in successful!");
                 router.push("/");
               }}
               onError={(err) => {
                 console.error(err);
-                setError("Google sign-in failed. Please try again.");
               }}
             />
             {/* Enhanced Sign Up Link */}
@@ -105,26 +135,6 @@ export function SignInForm() {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Enhanced Footer */}
-        <div className="text-center mt-8">
-          <p className="text-sm text-white/50 leading-relaxed">
-            By signing in, you agree to our{" "}
-            <a
-              href="/terms"
-              className="text-purple-300 hover:text-purple-200 transition-colors hover:underline"
-            >
-              Terms of Service
-            </a>{" "}
-            and{" "}
-            <a
-              href="/privacy"
-              className="text-purple-300 hover:text-purple-200 transition-colors hover:underline"
-            >
-              Privacy Policy
-            </a>
-          </p>
         </div>
       </div>
     </div>

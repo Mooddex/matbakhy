@@ -1,11 +1,13 @@
-import { Button } from "../ui/Buttons/button";
 import Image from "next/image";
 import pic from "@/assets/profilepic.jpeg";
-import KitchensGrid from "../ui/Cards/KitchensGrid";
+import { Button } from "@/components/ui/Buttons/button";
+import KitchensGrid from "@/components/ui/Cards/KitchensGrid";
+import { User } from "@/lib/types/User";
+interface ProfileCard{
+  user : User;
+}
 
-
-
-export default function ProfileCard() {
+export default function ProfileCard({user}:ProfileCard) {
 
   return (
     <section className="min-h-screen">
@@ -20,7 +22,7 @@ export default function ProfileCard() {
           className="rounded-4xl  border-transparent "
         />
         <div className="space-y-3 flex flex-col justify-center ">
-          <h1 className="text-2xl sm:text-4xl font-bold text-center">Mahmoud salama</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold text-center">{user.name}</h1>
           <span className="max-w-lg text-center sm:text-2xl">
             Lorem ipsum dol adipisicing elit. Quibusdam sunt tempore
             voluptateaperiam facere quo rerum
