@@ -1,5 +1,4 @@
 import Image from "next/image";
-import pic from "@/assets/profilepic.jpeg";
 import { Button } from "@/components/ui/Buttons/button";
 import KitchensGrid from "@/components/ui/Cards/KitchensGrid";
 import { User } from "@/lib/types/User";
@@ -15,11 +14,14 @@ export default function ProfileCard({user}:ProfileCard) {
       <div className=" mt-30 space-y-3">
 <div className="grid lg:grid-cols-3 justify-items-center gap-1.5  ">
         <Image
-          src={pic}
-          alt="profile picture"
-          width={200}
-          height={120}
+          src={user.avatar}
+          alt={`${user.name} Image`}
+           width={400}
+  height={400}
+  quality={100}           // Sweet spot: 90-95 for high quality
+  priority  
           className="rounded-4xl  border-transparent "
+
         />
         <div className="space-y-3 flex flex-col justify-center ">
           <h1 className="text-2xl sm:text-4xl font-bold text-center">{user.name}</h1>
