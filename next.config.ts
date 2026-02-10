@@ -22,6 +22,18 @@ const nextConfig :NextConfig = {
         // Use '**' to allow any path under the hostname
        
       },
+       {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**', // Allows any path on this domain
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
