@@ -52,23 +52,29 @@ export const getUser = async (id: string) => {
 };
 
 // -------------------------------
-// Update user
+// Update user by firebaseUid
 // -------------------------------
-export const updateUser = async (id: string, data: User) => {
+export const updateUser = async (id: string, data: Partial<User>) => {
   const res = await fetch(`${baseUrl}/api/users/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
+  const result = await res.json();
+
   if (!res.ok) {
-    console.error("Update user failed:", res.status, await res.text());
-    throw new Error("Failed to update user");
+    return {
+      success: false,
+      message: result.error || "Failed to update user",
+    };
   }
 
-  return res.json();
+  return {
+    success: true,
+    data: result,
+  };
 };
-
 // -------------------------------
 // Delete user
 // -------------------------------

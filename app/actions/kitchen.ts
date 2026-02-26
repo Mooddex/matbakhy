@@ -1,6 +1,7 @@
 "use server"
 
 import { TAddKitchenSchema, TEditKitchenSchema } from "@/lib/validators";
+import { auth } from "@/lib/firebase/firebase-config";
 const API_URL = process.env.PlaceHolderURL;
 
 // GET ALL KITCHENS
@@ -44,10 +45,16 @@ export async function updateKitchenAction(
 }
 // ADD A NEW KITCHEN
 export async function addKitchenAction(newKitchen: TAddKitchenSchema) {
+  const session = auth.currentUser
+ if (!session) {
+    return { success: false, message: "Unauthorized user" };
+  }
   const res = await fetch(`${API_URL}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newKitchen),
+    body: JSON.stringify({...newKitchen,
+    userId:session?.uid
+    }),
   });
 
   if (!res.ok) {

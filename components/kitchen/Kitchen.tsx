@@ -1,7 +1,7 @@
 import { DollarSign, User, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
-import BackButton from "./ui/Buttons/BackButton";
-import DeleteButtons from "./ui/Buttons/DeleteButtons";
+import BackButton from "@/components/ui/Buttons/BackButton";
+import DeleteButtons from "@/components/ui/Buttons/DeleteButtons";
 import Image from "next/image";
 import { Kitchen } from "@/lib/types/Kitchens";
 

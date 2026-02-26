@@ -1,6 +1,6 @@
 import { getUser } from "@/app/actions/user";
 import NotFound from "@/app/not-found";
-import ProfileCard from "@/components/ProfileCard";
+import ProfileCard from "@/components/profile/ProfileCard";
 import { User } from "@/lib/types/User";
 
 const ProfilePage = async ({
