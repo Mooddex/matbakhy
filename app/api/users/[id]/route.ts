@@ -49,19 +49,14 @@ export async function PATCH(
   try {
     await connectDB();
 
-    const { id } = await params;
+    // firebase UID is passed in the URL as the id parameter
+    const { id: firebaseUid } = await params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json(
-        { error: "Invalid user id" },
-        { status: 400 }
-      );
-    }
-
+    // we update by firebaseUid rather than Mongo ObjectId
     const body = await req.json();
 
-    const user = await User.findByIdAndUpdate(
-      id,
+    const user = await User.findOneAndUpdate(
+      { firebaseUid },
       body,
       { new: true }
     ).select("-password");

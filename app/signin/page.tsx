@@ -1,4 +1,4 @@
-import { SignInForm } from "@/components/forms/SigninForm";
+import { SignInForm } from "@/components/auth/SigninForm";
 import { Suspense } from "react";
 
 export default function SignInPage() {

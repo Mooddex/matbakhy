@@ -3,43 +3,38 @@
 import { toast } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { EditKitchenSchema, TEditKitchenSchema } from "@/lib/validators";
-import { Kitchen } from "@/lib/types/Kitchens";
-import { updateKitchenAction } from "@/app/actions/kitchen";
+import { AddKitchenSchema, TAddKitchenSchema } from "@/lib/validators";
+import { addKitchenAction } from "@/app/actions/kitchen";
 import { useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
 import { Upload, Loader2 } from "lucide-react";
+import Cancel from "../ui/Buttons/CancelButton";
 
-interface EditProductFormProps {
-  kitchen: Kitchen;
-}
-
-export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
+export default function AddKitchenForm() {
   const router = useRouter();
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<TEditKitchenSchema>({
-    resolver: zodResolver(EditKitchenSchema),
-    defaultValues: kitchen,
+  } = useForm<TAddKitchenSchema>({
+    resolver: zodResolver(AddKitchenSchema),
   });
 
-  const submitHandler = async (data: TEditKitchenSchema) => {
+  const submitHandler = async (data: TAddKitchenSchema) => {
     try {
-      const res = await updateKitchenAction(kitchen.id, data);
+      const res = await addKitchenAction(data);
       if (res.success) {
-        toast.success(`${kitchen.name} updated successfully`, {
+        toast.success(`${data.name} Added successfully`, {
           autoClose: 3000,
         });
-        router.push(`/kitchen/${kitchen.id}`);
+        router.push(`/kitchen/${res.data.id}`);
         router.refresh();
       } else {
-        toast.error(res.message || "Failed to update kitchen");
+        toast.error(res.message || "Failed to add kitchen");
       }
     } catch (error) {
-      console.error("Update error:", error);
+      console.error("adding error:", error);
       toast.error("An unexpected error occurred");
     }
   };
@@ -49,19 +44,17 @@ export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
       onSubmit={handleSubmit(submitHandler)}
       className="max-w-2xl mx-auto space-y-6 p-6 rounded-2xl border border-violet-800 bg-violet-950 shadow-md"
     >
-      <h2 className="text-2xl font-semibold text-white">Edit Kitchen</h2>
+      <h2 className="text-2xl font-semibold text-white">
+        Add Your New Kitchen
+      </h2>
 
       {/* Name */}
       <div>
-        <input type="hidden" {...register("id")} />
-{errors.id && (
-          <p className="text-red-400 text-sm mt-1">{errors.id.message}</p>
-        )}
         <label
           htmlFor="name"
           className="block text-sm font-medium text-violet-200 mb-1"
         >
-          Name
+          Username
         </label>
         <input
           id="name"
@@ -171,7 +164,7 @@ export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
         <input
           type="text"
           {...register("imageUrl")}
-          
+          readOnly
           className="display-none"
         />
         {errors.imageUrl && (
@@ -190,8 +183,9 @@ export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
         }`}
       >
         {isSubmitting && <Loader2 className="animate-spin" size={18} />}
-        {isSubmitting ? "Saving..." : "Update Kitchen"}
+        {isSubmitting ? "Saving..." : "Add a New Kitchen"}
       </button>
+      <Cancel />
     </form>
   );
 }
