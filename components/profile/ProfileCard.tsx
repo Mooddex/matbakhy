@@ -51,7 +51,14 @@ export default function ProfileCard({ user }: ProfileCardProps) {
                   <Divider />
                   <Stat
                     label="Member Since"
-                    value={new Date(user.createdAt).getFullYear().toString()}
+                    value={
+                      user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                          })
+                        : "—"
+                    }
                   />
                 </div>
               </div>

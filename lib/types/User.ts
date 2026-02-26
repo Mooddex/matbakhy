@@ -1,9 +1,8 @@
 // In @/lib/types/User.ts (or wherever your User type is)
 export interface User {
   firebaseUid: string; // Changed from 'id'
-  password: string,
   email: string;
-  createdAt: number;
+  createdAt?: number | string ;
   name: string;
   username: string;
   avatar?: string;
