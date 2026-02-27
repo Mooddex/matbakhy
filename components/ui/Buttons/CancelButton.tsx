@@ -22,7 +22,7 @@ export default function Cancel() {
   <button
     type="button"
     onClick={() => handleCancel()}
-    className="px-4 py-2 rounded border px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-950 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400">
+    className="px-4 py-2 rounded border bg-blue-600 text-white hover:bg-blue-950 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 w-full">
     Cancel
   </button>
   

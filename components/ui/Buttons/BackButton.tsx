@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function BackButton() {
     return(
-        <div className=" shadow-sm flex items-center">
+        <div className=" shadow-sm flex items-center mt-27">
                 <div className=" align-middle mx-auto px-4 py-4">
                   <Link
                     href="/kitchen/all"

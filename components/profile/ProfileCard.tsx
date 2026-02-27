@@ -1,5 +1,5 @@
 import Image from "next/image";
-import KitchensGrid from "@/components/ui/Cards/KitchensGrid";
+import EmptyProfileState from "@/components/profile/embtyProfileState";
 import { User } from "@/lib/types/User";
 import ShareProfile from "./shareProfile";
 import EditProfile from "./editeProfile";
@@ -42,8 +42,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
 
                 {/* Stats */}
                 <div className="flex flex-wrap justify-center lg:justify-start items-center gap-6 bg-white/70 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/40 shadow-sm mt-6">
-                  <Stat label="Followers" value="12.5k" />
-                  <Divider />
+                 
                   <Stat
                     label="Kitchens"
                     value={user.stats?.totalKitchens.toString() || "0"}
@@ -85,8 +84,8 @@ export default function ProfileCard({ user }: ProfileCardProps) {
       </section>
 
       {/* CONTENT GRID */}
-      <section className="max-w-7xl mx-auto px-8 py-16">
-        <KitchensGrid />
+      <section >
+       <EmptyProfileState />
       </section>
     </main>
   );

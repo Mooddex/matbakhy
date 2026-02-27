@@ -126,18 +126,8 @@ export default function EditProfile({ user }: EditProfileProps) {
                   <Upload size={18} />
                   <span>Click to upload or drag and drop</span>
                 </CldUploadButton>
-                {/* <input
-                  id="avatar"
-                  type="text"
-                  {...register("avatar")}
-                  readOnly
-                  className="w-full rounded-lg border p-2.5 focus:ring-2 focus:ring-black focus:outline-none"
-                />
-                {errors.avatar && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.avatar.message}
-                  </p>
-                )} */}
+              
+              
               </div>
 
               {/* name */}
