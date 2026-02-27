@@ -42,13 +42,16 @@ export default function AddKitchenForm() {
   return (
     <form
       onSubmit={handleSubmit(submitHandler)}
-      className="max-w-2xl mx-auto space-y-6 p-6 rounded-2xl border border-violet-800 bg-violet-950 shadow-md"
+      className=" m-3  mx-auto space-y-6 p-6 rounded-2xl border border-violet-800 bg-violet-950 shadow-md "
     >
       <h2 className="text-2xl font-semibold text-white">
         Add Your New Kitchen
       </h2>
 
       {/* Name */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+
+     
       <div>
         <label
           htmlFor="name"
@@ -143,7 +146,7 @@ export default function AddKitchenForm() {
           <p className="text-red-400 text-sm mt-1">{errors.location.message}</p>
         )}
       </div>
-
+ </div>
       {/* Image Upload */}
       <div className="flex flex-col gap-2">
         <label className="block text-sm font-medium text-violet-200 mb-1">
@@ -165,7 +168,7 @@ export default function AddKitchenForm() {
           type="text"
           {...register("imageUrl")}
           readOnly
-          className="display-none"
+          className="text-white text-2xl"
         />
         {errors.imageUrl && (
           <p className="text-red-400 text-sm mt-1">{errors.imageUrl.message}</p>
@@ -186,6 +189,7 @@ export default function AddKitchenForm() {
         {isSubmitting ? "Saving..." : "Add a New Kitchen"}
       </button>
       <Cancel />
+      
     </form>
   );
 }
