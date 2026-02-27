@@ -12,6 +12,8 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { EditProfileSchema, TEditProfileSchema } from "@/lib/validators";
 import { updateUser } from "@/app/actions/user";
 import { User } from "@/lib/types/User";
+import { Upload } from "lucide-react";
+import { CldUploadButton } from "next-cloudinary";
 
 interface EditProfileProps {
   user: User;
@@ -23,6 +25,7 @@ export default function EditProfile({ user }: EditProfileProps) {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<TEditProfileSchema>({
@@ -101,7 +104,7 @@ export default function EditProfile({ user }: EditProfileProps) {
                   </p>
                 )}
               </div>
-                 {/* Image */}
+              {/* Image */}
               <div>
                 <label
                   htmlFor="avatar"
@@ -109,17 +112,32 @@ export default function EditProfile({ user }: EditProfileProps) {
                 >
                   Image
                 </label>
-                <input
+                <CldUploadButton
+                  uploadPreset={
+                    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+                  }
+                  onSuccess={(res) => {
+                    const result = res as { info: { secure_url: string } };
+                    const imageUrl = result.info.secure_url;
+                    setValue("avatar", imageUrl, { shouldValidate: true });
+                  }}
+                  className="w-full rounded-lg border p-2.5 focus:ring-2 focus:ring-black focus:outline-none flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Upload size={18} />
+                  <span>Click to upload or drag and drop</span>
+                </CldUploadButton>
+                {/* <input
                   id="avatar"
                   type="text"
                   {...register("avatar")}
+                  readOnly
                   className="w-full rounded-lg border p-2.5 focus:ring-2 focus:ring-black focus:outline-none"
                 />
                 {errors.avatar && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.avatar.message}
                   </p>
-                )}
+                )} */}
               </div>
 
               {/* name */}
@@ -142,12 +160,9 @@ export default function EditProfile({ user }: EditProfileProps) {
                   </p>
                 )}
               </div>
-               {/* bio */}
+              {/* bio */}
               <div>
-                <label
-                  htmlFor="bio"
-                  className="block text-sm font-medium mb-1"
-                >
+                <label htmlFor="bio" className="block text-sm font-medium mb-1">
                   Bio
                 </label>
                 <input
