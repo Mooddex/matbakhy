@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { IoIosAddCircle } from "react-icons/io";
+import AddKitchenForm from "../kitchen/AddKitchenForm";
 
 export default function emptyProfileState() {
   return (
@@ -11,13 +10,8 @@ export default function emptyProfileState() {
         Start your journey on Matbakhy by listing your first professional
         kitchen.
       </p>
-      <Link 
-      href="/kitchen/new"
-      className="bg-black text-white hover:bg-slate-800 transition-all px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3 shadow-xl">
-        <IoIosAddCircle />
-
-        Host Your Kitchen
-      </Link>
+      <AddKitchenForm />
+        
     </div>
   );
 }
