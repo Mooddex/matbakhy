@@ -1,4 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+
+// Lightweight type for objects returned by Mongoose `lean()` / `toObject()`
+type KitchenDoc = Record<string, unknown> & {
+  _id?: unknown;
+  createdAt?: unknown;
+  updatedAt?: unknown;
+};
 import  connectDB  from "@/lib/db/db";
 import Kitchen from "@/lib/models/Kitchen";
 import { adminAuth } from "@/lib/firebase/firebase-admin";
@@ -7,8 +14,24 @@ import { adminAuth } from "@/lib/firebase/firebase-admin";
 export async function GET() {
   try {
     await connectDB();
-    const kitchens = await Kitchen.find().sort({ createdAt: -1 });
-    return NextResponse.json(kitchens, { status: 200 });
+    const kitchens = await Kitchen.find().sort({ createdAt: -1 }).lean();
+
+    // Type for lean() result
+    type KitchenDoc = Record<string, unknown> & {
+      _id?: unknown;
+      createdAt?: unknown;
+      updatedAt?: unknown;
+    };
+
+    // Ensure response is JSON-serializable: convert ObjectId to string
+    const safeKitchens = (kitchens as KitchenDoc[]).map((k) => ({
+      ...k,
+      _id: String(k._id ?? ""),
+      createdAt: k.createdAt ? new Date(String(k.createdAt)).toISOString() : null,
+      updatedAt: k.updatedAt ? new Date(String(k.updatedAt)).toISOString() : null,
+    }));
+
+    return NextResponse.json(safeKitchens, { status: 200 });
   } catch (error) {
     console.error("GET kitchens error:", error);
     return NextResponse.json({ message: "Failed to load kitchens" }, { status: 500 });
@@ -45,7 +68,15 @@ export async function POST(req: NextRequest) {
       userId: firebaseUid, // from verified token, not from body
     });
 
-    return NextResponse.json(kitchen, { status: 201 });
+    const obj = kitchen.toObject() as unknown as KitchenDoc;
+    const safeKitchen = {
+      ...obj,
+      _id: String(obj._id ?? ""),
+      createdAt: obj.createdAt ? new Date(String(obj.createdAt)).toISOString() : null,
+      updatedAt: obj.updatedAt ? new Date(String(obj.updatedAt)).toISOString() : null,
+    };
+
+    return NextResponse.json(safeKitchen, { status: 201 });
   } catch (error) {
     console.error("POST kitchen error:", error);
     return NextResponse.json({ message: "Failed to create kitchen" }, { status: 500 });
