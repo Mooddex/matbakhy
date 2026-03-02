@@ -8,6 +8,7 @@ interface ExtendedKitchenCardProps extends KitchenCardProps {
 }
 
 const KitchenCard = ({
+  _id = "",
   name,
   maker,
   phoneNumber,
@@ -15,7 +16,6 @@ const KitchenCard = ({
   description,
   price,
   location,
-  id = "",
 }: ExtendedKitchenCardProps) => {
   const CardContent = () => (
     <div className="bg-white rounded-2xl border shadow-sm hover:shadow-lg overflow-hidden transition h-full">
@@ -70,11 +70,11 @@ const KitchenCard = ({
     </div>
   );
 
-  // If we have an id, wrap in Link, otherwise just return the card
-  if (id) {
+  // If we have an _id, wrap in Link, otherwise just return the card
+  if (_id) {
     return (
       <div className="relative h-full">
-        <Link href={`/kitchen/${id}`} className="block h-full">
+        <Link href={`/kitchen/${_id}`} className="block h-full">
           <CardContent />
         </Link>
       </div>

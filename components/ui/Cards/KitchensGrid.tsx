@@ -10,7 +10,7 @@ const data = await fetchKitchens();
   return (
     <div className="grid m-4 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {data.map((kitchen: Kitchen) => (
-        <KitchenCard key={kitchen.id} {...kitchen} />
+        <KitchenCard key={kitchen._id} {...kitchen} />
       ))}
     </div>
   );
