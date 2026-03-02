@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Button } from "../ui/button";
 import { IoIosAddCircle } from "react-icons/io";
+import { auth } from "@/lib/firebase/firebase-config";
 
 
 export default function AddKitchenForm() {
@@ -28,8 +29,18 @@ export default function AddKitchenForm() {
   });
 
   const submitHandler = async (data: TAddKitchenSchema) => {
+      const session = auth.currentUser;
+
+  if (!session) {
+    toast.error("You must be logged in");
+    return;
+  }
+
+  // Get token client-side and pass it to the server action
+  const token = await session.getIdToken();
+
     try {
-      const res = await addKitchenAction(data);
+      const res = await addKitchenAction(data, token);
       if (res.success) {
         toast.success(`${data.name} Added successfully`, {
           autoClose: 3000,

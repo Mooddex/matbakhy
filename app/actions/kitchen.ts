@@ -1,31 +1,66 @@
-"use server"
+"use server";
 
 import { TAddKitchenSchema, TEditKitchenSchema } from "@/lib/validators";
 import { auth } from "@/lib/firebase/firebase-config";
-const API_URL = process.env.PlaceHolderURL;
+
+const API_URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/kitchens`;
 
 // GET ALL KITCHENS
 export async function fetchKitchens() {
-  const res = await fetch(`${API_URL}`);
+  const res = await fetch(API_URL, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load kitchens");
   return res.json();
-};
+}
+
 // GET A SINGLE KITCHEN BY ID
 export async function fetchKitchenById(id: string) {
-  const res = await fetch(`${API_URL}/${id}`);
+  const res = await fetch(`${API_URL}/${id}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load kitchen");
   return res.json();
 }
-// EDIT A KITCHEN BY ID
-export async function updateKitchenAction(
-  id: string,
-  updatedKitchen: TEditKitchenSchema
-) {
+
+// add kitchen
+
+export async function addKitchenAction(newKitchen: TAddKitchenSchema, token: string) {
+  if (!token) {
+    return { success: false, message: "Unauthorized user" };
+  }
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/kitchens`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(newKitchen),
+    });
+
+    if (!res.ok) {
+      return { success: false, message: "Failed to create kitchen" };
+    }
+
+    const data = await res.json();
+    return { success: true, data };
+  } catch (error) {
+    console.error("Add kitchen error:", error);
+    return { success: false, message: "Network error occurred" };
+  }
+}
+
+// UPDATE A KITCHEN BY ID
+export async function updateKitchenAction(id: string, updatedKitchen: TEditKitchenSchema) {
+  const session = auth.currentUser;
+
+  if (!session) {
+    return { success: false, message: "Unauthorized user" };
+  }
+
   try {
     const res = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedKitchen),
+      body: JSON.stringify({ ...updatedKitchen, userId: session.uid }),
     });
 
     if (!res.ok) {
@@ -36,43 +71,32 @@ export async function updateKitchenAction(
     return { success: true, data };
   } catch (error) {
     console.error("Update kitchen error:", error);
-    return {
-      success: false,
-      message: "Network error occurred",
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
+    return { success: false, message: "Network error occurred" };
   }
 }
-// ADD A NEW KITCHEN
-export async function addKitchenAction(newKitchen: TAddKitchenSchema) {
-  const session = auth.currentUser
- if (!session) {
+
+// DELETE A KITCHEN BY ID
+export async function deleteKitchenAction(id: string) {
+  const session = auth.currentUser;
+
+  if (!session) {
     return { success: false, message: "Unauthorized user" };
   }
-  const res = await fetch(`${API_URL}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({...newKitchen,
-    userId:session?.uid
-    }),
-  });
 
-  if (!res.ok) {
-    return { success: false, message: "Failed to create Kitchen" };
+  try {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: session.uid }),
+    });
+
+    if (!res.ok) {
+      return { success: false, message: "Failed to delete kitchen" };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Delete kitchen error:", error);
+    return { success: false, message: "Network error occurred" };
   }
-
-  const data = await res.json();
-  return { success: true, data };
-}
-// DELETE A KITCHEN BY ID
-export async function deleteKitchenAction(id:string){
-  const res = await fetch(`${API_URL}/${id}`, {
-   method: "DELETE",
-  });
-
-  if (!res.ok) {
-    return { success: false, message: "Failed to delete Kitchen" };
-  }
-
-  return { success: true };
 }

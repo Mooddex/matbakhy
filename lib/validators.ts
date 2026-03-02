@@ -11,7 +11,7 @@ const KitchenBaseSchema = z.object({
   price: z.number().positive("Price must be positive").min(1000, "Price must be at least 1000"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   location: z.string().min(1, "Location is required"),
-  phoneNumber: z.e164("Invalid phone number format, Must start with +"),
+  phoneNumber: z.number("Invalid phone number format, Must start with +"),
   imageUrl: z.url("Invalid URL"),
 });
 

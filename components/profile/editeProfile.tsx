@@ -64,7 +64,7 @@ export default function EditProfile({ user }: EditProfileProps) {
   return (
     <>
       <Button
-        className="w-48 h-12 bg-black text-white rounded-2xl font-semibold shadow-lg"
+        className="w-full h-12 bg-black text-white rounded-2xl font-semibold shadow-lg"
         onClick={() => setIsOpen(true)}
       >
         Edit Profile
@@ -176,7 +176,6 @@ export default function EditProfile({ user }: EditProfileProps) {
                 >
                   Cancel
                 </button>
-
                 <button
                   type="submit"
                   disabled={isSubmitting}

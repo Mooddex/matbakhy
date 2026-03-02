@@ -1,18 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { deleteKitchenAction } from '@/app/actions/kitchen';
+import { auth } from '@/lib/firebase/firebase-config';
+import { onAuthStateChanged } from 'firebase/auth';
 
 interface DeleteButtonsProps {
   id: string;
   kitchenName: string;
+  userId: string; // kitchen's userId
 }
 
-export default function DeleteButtons({ id, kitchenName }: DeleteButtonsProps) {
+export default function DeleteButtons({ id, kitchenName, userId }: DeleteButtonsProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [currentUid, setCurrentUid] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setCurrentUid(user?.uid ?? null);
+    });
+    return () => unsub();
+  }, []);
+
+  const isOwner = currentUid === userId;
 
   const handleDeleteKitchen = async (id: string) => {
     try {
@@ -71,10 +85,12 @@ export default function DeleteButtons({ id, kitchenName }: DeleteButtonsProps) {
     );
   };
 
+   if (!isOwner) return null; // hide entirely if not owner
+
   return (
     <div className="flex flex-wrap gap-2">
       <button
-        onClick={() => handleDelete(kitchenName)} // ✅ FIXED: Now passes kitchenName
+        onClick={() => handleDelete(kitchenName)}
         disabled={loading}
         className={`bg-red-600 text-white px-4 py-2 rounded ${
           loading ? 'opacity-60 cursor-not-allowed' : 'hover:bg-red-700 cursor-pointer'
