@@ -1,9 +1,9 @@
 import { DollarSign, User, MapPin, Phone } from "lucide-react";
-import Link from "next/link";
 import BackButton from "@/components/ui/Buttons/BackButton";
 import DeleteButtons from "@/components/ui/Buttons/DeleteButtons";
 import Image from "next/image";
 import { Kitchen } from "@/lib/types/Kitchens";
+import EditButton from "../ui/Buttons/editBtn";
 
 interface SingleKitchenProps {
   Kitchen: Kitchen;
@@ -106,12 +106,8 @@ export default function SingleKitchen({ Kitchen }: SingleKitchenProps) {
                     Contact {Kitchen.maker}
                   </a>
                   {/* EDIT Button */}
-                  <Link href={`${Kitchen.id}/edit`}>
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer">
-                      Edit
-                    </button>
-                  </Link>
-                  <DeleteButtons id={Kitchen.id} kitchenName={Kitchen.name} />
+                 <EditButton kitchenId={Kitchen._id} userId={Kitchen.userId} />
+                  <DeleteButtons id={Kitchen._id} kitchenName={Kitchen.name} userId={Kitchen.userId} />
                 </div>
               </div>
             </div>

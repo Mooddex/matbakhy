@@ -24,17 +24,18 @@ export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
   } = useForm<TEditKitchenSchema>({
     resolver: zodResolver(EditKitchenSchema),
     defaultValues: kitchen,
+    
   });
 
   const submitHandler = async (data: TEditKitchenSchema) => {
     
     try {
-      const res = await updateKitchenAction(kitchen.id, data);
+      const res = await updateKitchenAction(kitchen._id, data);
       if (res.success) {
         toast.success(`${kitchen.name} updated successfully`, {
           autoClose: 3000,
         });
-        router.push(`/kitchen/${kitchen.id}`);
+        router.push(`/kitchen/${kitchen._id}`);
         router.refresh();
       } else {
         toast.error(res.message || "Failed to update kitchen");
