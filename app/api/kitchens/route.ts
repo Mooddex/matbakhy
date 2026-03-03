@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import connectDB from "@/lib/db/db";
+import Kitchen from "@/lib/models/Kitchen";
+import { adminAuth } from "@/lib/firebase/firebase-admin";
 
-// Lightweight type for objects returned by Mongoose `lean()` / `toObject()`
+// Single type declaration at the top
 type KitchenDoc = Record<string, unknown> & {
   _id?: unknown;
   createdAt?: unknown;
   updatedAt?: unknown;
 };
-import  connectDB  from "@/lib/db/db";
-import Kitchen from "@/lib/models/Kitchen";
-import { adminAuth } from "@/lib/firebase/firebase-admin";
 
 // GET ALL KITCHENS
 export async function GET() {
@@ -16,14 +16,6 @@ export async function GET() {
     await connectDB();
     const kitchens = await Kitchen.find().sort({ createdAt: -1 }).lean();
 
-    // Type for lean() result
-    type KitchenDoc = Record<string, unknown> & {
-      _id?: unknown;
-      createdAt?: unknown;
-      updatedAt?: unknown;
-    };
-
-    // Ensure response is JSON-serializable: convert ObjectId to string
     const safeKitchens = (kitchens as KitchenDoc[]).map((k) => ({
       ...k,
       _id: String(k._id ?? ""),
@@ -39,12 +31,10 @@ export async function GET() {
 }
 
 // CREATE A KITCHEN
-
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    // Verify Firebase token from Authorization header
     const authHeader = req.headers.get("Authorization");
     if (!authHeader?.startsWith("Bearer ")) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -58,14 +48,8 @@ export async function POST(req: NextRequest) {
     const { name, maker, price, phoneNumber, description, location, imageUrl } = body;
 
     const kitchen = await Kitchen.create({
-      name,
-      maker,
-      price,
-      phoneNumber,
-      description,
-      location,
-      imageUrl,
-      userId: firebaseUid, // from verified token, not from body
+      name, maker, price, phoneNumber, description, location, imageUrl,
+      userId: firebaseUid,
     });
 
     const obj = kitchen.toObject() as unknown as KitchenDoc;
