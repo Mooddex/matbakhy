@@ -1,6 +1,6 @@
 import { fetchKitchenById } from "@/app/actions/kitchen";
 import { notFound } from "next/navigation";
-import EditKitchenForm from "@/components/forms/EditKitchenForm";
+import EditKitchenForm from "@/components/kitchen/EditKitchenForm";
 import BackButton from "@/components/ui/Buttons/BackButton";
 
 interface EditKitchenProps {
