@@ -3,9 +3,7 @@
 import { TAddKitchenSchema, TEditKitchenSchema } from "@/lib/validators";
 import { auth } from "@/lib/firebase/firebase-config";
 
-const API_URL = process.env.NEXT_PUBLIC_APP_URL
-  ? `${process.env.NEXT_PUBLIC_APP_URL}/api/kitchens`
-  : "/api/kitchens";
+const API_URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/kitchens`;
 
 // GET ALL KITCHENS
 export async function fetchKitchens() {
