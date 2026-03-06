@@ -16,7 +16,7 @@ const Footer = ({ title, subtitle }: FooterProps) => {
           <Link href="https://www.linkedin.com" target="_blank">
             <FaLinkedinIn className="hover:text-gray-300 transition" />
           </Link>
-          <Link href="https://github.com" target="_blank">
+          <Link href="https://github.com/Mooddex" target="_blank">
             <FaGithub className="hover:text-gray-300 transition" />
           </Link>
         </div>

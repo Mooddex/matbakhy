@@ -2,7 +2,7 @@ import Image from "next/image";
 import EmptyProfileState from "@/components/profile/embtyProfileState";
 import { User } from "@/lib/types/User";
 import EditProfile from "./editeProfile";
-import KitchensGrid from "../ui/Cards/KitchensGrid";
+import KitchensGrid from "../kitchen/KitchensGrid";
 import AddKitchenForm from "../kitchen/AddKitchenForm";
 interface ProfileCardProps {
   user: User;
@@ -19,7 +19,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
             <div className="flex flex-col lg:flex-row items-center lg:items-end gap-10">
               {/* Avatar */}
               <div className="relative">
-                <div className="w-65 h-65 lg:w-[320px] lg:h-[320px] rounded-4xl shadow-2xl overflow-hidden bg-white">
+                <div className="w-65 h-65 lg:w-[320px] lg:h-80 rounded-4xl shadow-2xl overflow-hidden bg-white">
                   <Image
                     src={user.avatar || "/avatar.jpg"}
                     alt={`${user.name} avatar`}
