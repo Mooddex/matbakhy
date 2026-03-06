@@ -1,6 +1,6 @@
 import Image from "next/image";
 import homeBG from '@/img/bg.png';
-import KitchensGrid from "@/components/ui/Cards/KitchensGrid";
+import KitchensGrid from "@/components/kitchen/KitchensGrid";
 
 export default async function AllKitchens() {
   return (
@@ -16,7 +16,7 @@ export default async function AllKitchens() {
       />
 
       {/* Optional: A light gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-white/40 -z-10" />
+      <div className="absolute inset-0 bg-linear-to-b from-white/30 via-white/10 to-white/40 -z-10" />
 
       {/* Main Content */}
       <div className="relative z-10 px-6 pt-32 pb-20 text-gray-900">
