@@ -83,7 +83,7 @@ export default function AddKitchenForm() {
               </h2>
 
               {/* Name */}
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="grid grid-cols-2 gap-3 ">
                 <div>
                   <label
                     htmlFor="name"
@@ -227,7 +227,7 @@ export default function AddKitchenForm() {
                 {isSubmitting && <Loader2 className="animate-spin" size={18} />}
                 {isSubmitting ? "Saving..." : "Add a New Kitchen"}
               </button>
-              <Cancel />
+              <Cancel onCancel={ () => setIsOpen(false)} />
             </form>
           </DialogPanel>
         </div>
