@@ -31,3 +31,4 @@ package-lock.json
 yarn.lock
 tenacious-text-467900-a8-firebase-adminsdk-fbsvc-34e42e2198.jsontenacious-text-467900-a8-firebase-adminsdk-fbsvc-34e42e2198.json
 *.json
+.continue
