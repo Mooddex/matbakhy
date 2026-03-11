@@ -3,11 +3,18 @@ import  connectDB  from "@/lib/db/db";
 import Kitchen from "@/lib/models/Kitchen";
 import { adminAuth } from "@/lib/firebase/firebase-admin";
 
-// GET ALL KITCHENS
-export async function GET() {
+// GET ALL KITCHENS or filter by userId
+export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const kitchens = await Kitchen.find().sort({ createdAt: -1 });
+    
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
+    const kitchens = await Kitchen.find(
+      userId ? { userId } : {} // filter if userId provided, else return all
+    ).sort({ createdAt: -1 });
+
     return NextResponse.json(kitchens, { status: 200 });
   } catch (error) {
     console.error("GET kitchens error:", error);

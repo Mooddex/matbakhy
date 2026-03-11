@@ -25,7 +25,7 @@ export default async function AllKitchens() {
           <h1 className="text-5xl font-extrabold text-violet-900 drop-shadow-sm mb-4">
             Find Your <span className="text-violet-600">Perfect Fit</span>
           </h1>
-          <KitchensGrid />
+          <KitchensGrid   />
         </section>
       </div>
     </div>

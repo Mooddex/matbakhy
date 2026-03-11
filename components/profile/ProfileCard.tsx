@@ -1,5 +1,4 @@
 import Image from "next/image";
-import EmptyProfileState from "@/components/profile/embtyProfileState";
 import { User } from "@/lib/types/User";
 import EditProfile from "./editeProfile";
 import KitchensGrid from "../kitchen/KitchensGrid";
@@ -87,12 +86,8 @@ export default function ProfileCard({ user }: ProfileCardProps) {
 
       {/* CONTENT GRID */}
       <section>
-        {user.stats?.totalKitchens === 0 ? (
-          <EmptyProfileState user={user}/>
-        ) : (
-          <KitchensGrid />
-        )}
-      </section>
+  <KitchensGrid userId={user.firebaseUid} user={user} />
+</section>
     </main>
   );
 }

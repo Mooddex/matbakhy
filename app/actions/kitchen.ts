@@ -11,6 +11,14 @@ export async function fetchKitchens() {
   if (!res.ok) throw new Error("Failed to load kitchens");
   return res.json();
 }
+// GET USER'S OWN KITCHENS
+export async function fetchUserKitchens(userId?: string) {
+  const url = userId ? `${API_URL}?userId=${userId}` : API_URL;
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error("Failed to load kitchens");
+  return res.json();
+}
+// check for the kitchen uid and comapare it to the user if true get it in an array 
 
 // GET A SINGLE KITCHEN BY ID
 export async function fetchKitchenById(id: string) {
