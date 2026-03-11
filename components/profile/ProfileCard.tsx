@@ -88,7 +88,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
       {/* CONTENT GRID */}
       <section>
         {user.stats?.totalKitchens === 0 ? (
-          <EmptyProfileState />
+          <EmptyProfileState user={user}/>
         ) : (
           <KitchensGrid />
         )}

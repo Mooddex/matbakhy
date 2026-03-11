@@ -4,14 +4,13 @@ const KitchenBaseSchema = z.object({
   name: z
     .string()
     .min(2, "At least two characters")
-    .startsWith("@", "Username must start with (@)")
     .regex(/^[a-zA-Z0-9_@]+$/, "Only letters, numbers, and underscores are allowed")
     ,
   maker: z.string().min(1, "Maker is required"),
   price: z.number().positive("Price must be positive").min(1000, "Price must be at least 1000"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   location: z.string().min(1, "Location is required"),
-  phoneNumber: z.number("Invalid phone number format, Must start with +"),
+  phoneNumber: z.number("Invalid phone number "),
   imageUrl: z.url("Invalid URL"),
 });
 

@@ -15,12 +15,13 @@ import { Button } from "../ui/button";
 import { IoIosAddCircle } from "react-icons/io";
 import { auth } from "@/lib/firebase/firebase-config";
 
-interface TAddKitchenForm{
-  user:{
-  username: string,
-  name: string,
-}};
-export default function AddKitchenForm({ user }:TAddKitchenForm) {
+interface TAddKitchenForm {
+  user: {
+    username?: string;
+    name?: string;
+  };
+}
+export default function AddKitchenForm({ user }: TAddKitchenForm) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const {
@@ -49,7 +50,7 @@ export default function AddKitchenForm({ user }:TAddKitchenForm) {
         toast.success(`${data.name} Added successfully`, {
           autoClose: 3000,
         });
-        router.push(`/kitchen/${res.data.id}`);
+        router.push(`/kitchen/all`);
         router.refresh();
       } else {
         toast.error(res.message || "Failed to add kitchen");
@@ -87,21 +88,21 @@ export default function AddKitchenForm({ user }:TAddKitchenForm) {
 
               {/* Name */}
               <div className="grid grid-cols-2 gap-3 ">
-                <div>
+                <div className="space-y-1 text-wrap">
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium text-violet-200 mb-1"
                   >
                     Username
                   </label>
-                  <p className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white">
+                  <p className=" w-fit break-all rounded-lg border border-violet-700  bg-violet-900 p-2.5 text-white">
                     {user?.username}
                   </p>
                   <input
                     id="name"
                     {...register("name")}
-                    value={user?.username}
-                    className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
+                    defaultValue={user?.username}
+                    className="w-fit text-wrap rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
                     type="hidden"
                   />
                   {errors.name && (
@@ -116,13 +117,14 @@ export default function AddKitchenForm({ user }:TAddKitchenForm) {
                   <label className="block text-sm font-medium text-violet-200 mb-1">
                     Made By
                   </label>
-                  <p className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white">
+                  <p className="w-full wrap-break-word rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white">
                     {user?.name}
                   </p>
                   <input
+                  id="maker"
                     {...register("maker")}
+                    defaultValue={user?.name}
                     type="hidden"
-                    className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
                   />
                   {errors.maker && (
                     <p className="text-red-400 text-sm mt-1">
