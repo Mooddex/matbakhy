@@ -76,22 +76,21 @@ export async function updateKitchenAction(id: string, updatedKitchen: TEditKitch
 }
 
 // DELETE A KITCHEN BY ID
-export async function deleteKitchenAction(id: string) {
-  const session = auth.currentUser;
-
-  if (!session) {
-    return { success: false, message: "Unauthorized user" };
-  }
+export async function deleteKitchenAction(id: string, token: string) {
+  if (!token) return { success: false, message: "Unauthorized" };
 
   try {
     const res = await fetch(`${API_URL}/${id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: session.uid }),
+      headers: {
+        "Authorization": `Bearer ${token}`, // ✅ no body needed
+      },
     });
 
     if (!res.ok) {
-      return { success: false, message: "Failed to delete kitchen" };
+      const data = await res.json();
+      console.error("Delete failed:", data.message); // ← add this to catch silent errors
+      return { success: false, message: data.message };
     }
 
     return { success: true };

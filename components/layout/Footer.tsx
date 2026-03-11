@@ -13,7 +13,7 @@ const Footer = ({ title, subtitle }: FooterProps) => {
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-sm text-gray-300">{subtitle}</p>
         <div className="flex justify-center gap-6 text-white text-xl">
-          <Link href="https://www.linkedin.com" target="_blank">
+          <Link href="https://www.linkedin.com/in/mahmoudsalama1/" target="_blank">
             <FaLinkedinIn className="hover:text-gray-300 transition" />
           </Link>
           <Link href="https://github.com/Mooddex" target="_blank">

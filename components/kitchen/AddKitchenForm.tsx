@@ -15,8 +15,12 @@ import { Button } from "../ui/button";
 import { IoIosAddCircle } from "react-icons/io";
 import { auth } from "@/lib/firebase/firebase-config";
 
-
-export default function AddKitchenForm() {
+interface TAddKitchenForm{
+  user:{
+  username: string,
+  name: string,
+}};
+export default function AddKitchenForm({ user }:TAddKitchenForm) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const {
@@ -29,15 +33,15 @@ export default function AddKitchenForm() {
   });
 
   const submitHandler = async (data: TAddKitchenSchema) => {
-      const session = auth.currentUser;
+    const session = auth.currentUser;
 
-  if (!session) {
-    toast.error("You must be logged in");
-    return;
-  }
+    if (!session) {
+      toast.error("You must be logged in");
+      return;
+    }
 
-  // Get token client-side and pass it to the server action
-  const token = await session.getIdToken();
+    // Get token client-side and pass it to the server action
+    const token = await session.getIdToken();
 
     try {
       const res = await addKitchenAction(data, token);
@@ -59,11 +63,11 @@ export default function AddKitchenForm() {
   return (
     <div>
       <Button
-      className="bg-green-500 text-white hover:bg-green-800 cursor-pointer transition-all px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3 shadow-xl "
+        className="bg-green-500 text-white hover:bg-green-800 cursor-pointer transition-all px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3 shadow-xl "
         onClick={() => setIsOpen(true)}
       >
-         <IoIosAddCircle />
-       Add New Kitchen Design !
+        <IoIosAddCircle />
+        Add New Kitchen Design !
       </Button>
 
       <Dialog
@@ -73,7 +77,6 @@ export default function AddKitchenForm() {
       >
         <div className="fixed inset-0 flex w-full items-center justify-center p-4 bg-black/40">
           <DialogPanel className="w-full max-w-lg space-y-6 rounded-2xl border bg-white p-8 shadow-xl">
-            
             <form
               onSubmit={handleSubmit(submitHandler)}
               className=" m-3  mx-auto space-y-6 p-6 rounded-2xl border border-violet-800 bg-violet-950 shadow-md "
@@ -91,10 +94,15 @@ export default function AddKitchenForm() {
                   >
                     Username
                   </label>
+                  <p className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white">
+                    {user?.username}
+                  </p>
                   <input
                     id="name"
                     {...register("name")}
+                    value={user?.username}
                     className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
+                    type="hidden"
                   />
                   {errors.name && (
                     <p className="text-red-400 text-sm mt-1">
@@ -108,8 +116,12 @@ export default function AddKitchenForm() {
                   <label className="block text-sm font-medium text-violet-200 mb-1">
                     Made By
                   </label>
+                  <p className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white">
+                    {user?.name}
+                  </p>
                   <input
                     {...register("maker")}
+                    type="hidden"
                     className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
                   />
                   {errors.maker && (
@@ -206,7 +218,7 @@ export default function AddKitchenForm() {
                   <Upload size={18} />
                   <span>Click to upload or drag and drop</span>
                 </CldUploadButton>
-                
+
                 {errors.imageUrl && (
                   <p className="text-red-400 text-sm mt-1">
                     {errors.imageUrl.message}
@@ -227,7 +239,7 @@ export default function AddKitchenForm() {
                 {isSubmitting && <Loader2 className="animate-spin" size={18} />}
                 {isSubmitting ? "Saving..." : "Add a New Kitchen"}
               </button>
-              <Cancel onCancel={ () => setIsOpen(false)} />
+              <Cancel onCancel={() => setIsOpen(false)} />
             </form>
           </DialogPanel>
         </div>
