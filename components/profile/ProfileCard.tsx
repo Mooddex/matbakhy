@@ -4,15 +4,17 @@ import { User } from "@/lib/types/User";
 import EditProfile from "./editeProfile";
 import KitchensGrid from "../kitchen/KitchensGrid";
 import AddKitchenForm from "../kitchen/AddKitchenForm";
+import BackButton from "../ui/Buttons/BackButton";
 interface ProfileCardProps {
   user: User;
 }
 
 export default function ProfileCard({ user }: ProfileCardProps) {
   return (
-    <main className="pt-20">
-      {/* HERO SECTION */}
+    <main className="mt-1">
+      {/* HERO SECTION */} <BackButton />
       <section className="relative w-full overflow-hidden bg-violet-50 pb-16">
+       
         <div className="max-w-7xl mx-auto px-8 pt-20">
           <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between gap-12">
             {/* LEFT SIDE */}
@@ -66,7 +68,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
             {/* ACTION BUTTONS */}
             <div className="flex flex-col gap-4 max-w-fit">
               <EditProfile user={user} />
-             <AddKitchenForm />
+             <AddKitchenForm user={user} />
             </div>
           </div>
         </div>
@@ -86,7 +88,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
       {/* CONTENT GRID */}
       <section>
         {user.stats?.totalKitchens === 0 ? (
-          <EmptyProfileState />
+          <EmptyProfileState user={user}/>
         ) : (
           <KitchensGrid />
         )}

@@ -5,8 +5,7 @@ interface HeroProps {
   ctaText: string; // Call to action button
 }
 
-const Hero = ({title, subtitle, ctaText}:HeroProps) => {
-  
+const Hero = ({ title, subtitle, ctaText }: HeroProps) => {
   return (
     <div className="mb-20 pt-28">
       <div className="">
@@ -18,29 +17,20 @@ const Hero = ({title, subtitle, ctaText}:HeroProps) => {
             <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl">
               {title}
             </h2>
-            <p className="mt-4 text-lg text-white">
-              {subtitle}
-            </p>
+            <p className="mt-4 text-lg text-white">{subtitle}</p>
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link href="/explore">
-                         <button
-              className="h-12 px-6 font-semibold text-white bg-violet-700 rounded-md shadow hover:bg-violet-800 transition"
-            >
-              {ctaText}
-            </button>
+              <button className="h-12 px-6 font-semibold text-white bg-violet-700 rounded-md shadow hover:bg-violet-800 transition">
+                {ctaText}
+              </button>
             </Link>
           </div>
         </div>
       </div>
     </div>
   );
-
 };
-
-
-  
-
 
 export default Hero;

@@ -10,7 +10,7 @@ export interface Kitchen {
   name: string;
   maker: string;
   price: number;
-  phoneNumber: number;
+  phoneNumber: number ;
   description: string;
   location: string;
   imageUrl: string;

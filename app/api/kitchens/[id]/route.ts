@@ -69,40 +69,41 @@ export async function PUT(
 }
 
 // DELETE A KITCHEN
+import { adminAuth } from "@/lib/firebase/firebase-admin";
+
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    // 1. Verify token from header
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const token = authHeader.split("Bearer ")[1];
+    const decoded = await adminAuth.verifyIdToken(token);
+    const uid = decoded.uid;
+
     await connectDB();
     const { id } = await params;
 
-    const { userId } = await req.json();
-
     const kitchen = await Kitchen.findById(id);
-
     if (!kitchen) {
-      return NextResponse.json(
-        { message: "Kitchen not found" },
-        { status: 404 },
-      );
+      return NextResponse.json({ message: "Kitchen not found" }, { status: 404 });
     }
 
-    if (kitchen.userId !== userId) {
+    // 2. Compare verified uid
+    if (kitchen.userId !== uid) {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
     await Kitchen.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Kitchen deleted successfully" }, { status: 200 });
 
-    return NextResponse.json(
-      { message: "Kitchen deleted successfully" },
-      { status: 200 },
-    );
   } catch (error) {
     console.error("DELETE kitchen error:", error);
-    return NextResponse.json(
-      { message: "Failed to delete kitchen" },
-      { status: 500 },
-    );
+    return NextResponse.json({ message: "Failed to delete kitchen" }, { status: 500 });
   }
 }

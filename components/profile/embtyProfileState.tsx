@@ -1,6 +1,9 @@
 import AddKitchenForm from "../kitchen/AddKitchenForm";
 
-export default function emptyProfileState() {
+interface TemptyProfileState{
+  user: object
+}
+export default function emptyProfileState({user}:TemptyProfileState) {
   return (
     <div className="max-w-7xl mx-auto px-8 py-16 flex-col justify-items-center">
       <h2 className="text-2xl font-extrabold text-violet-900  mb-3">
@@ -10,7 +13,7 @@ export default function emptyProfileState() {
         Start your journey on Matbakhy by listing your first professional
         kitchen.
       </p>
-      <AddKitchenForm />
+      <AddKitchenForm user={user} />
         
     </div>
   );

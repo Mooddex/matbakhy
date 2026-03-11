@@ -81,7 +81,8 @@ export default function EditProfile({ user }: EditProfileProps) {
               Edit Your Profile
             </DialogTitle>
 
-            <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
+            <form 
+            onSubmit={handleSubmit(submitHandler)} className="space-y-6 text-black">
               <input type="hidden" {...register("firebaseUid")} />
 
               {/* Username */}
