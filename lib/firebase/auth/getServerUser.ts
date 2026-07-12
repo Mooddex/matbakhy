@@ -1,6 +1,6 @@
 // lib/firebase/auth/getServerUser.ts
 import { cookies } from "next/headers";
-import { adminAuth } from "@/lib/firebase/firebase-admin";
+import { getAdminAuth } from "@/lib/firebase/firebase-admin";
 
 export async function getServerUser() {
   const cookieStore = await cookies();
@@ -8,6 +8,7 @@ export async function getServerUser() {
   if (!session) return null;
 
   try {
+    const adminAuth = getAdminAuth();
     const decoded = await adminAuth.verifySessionCookie(session, true);
     return decoded; // { uid, email, ... }
   } catch {
