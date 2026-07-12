@@ -34,6 +34,11 @@ export default function AddKitchenForm({ user }: TAddKitchenForm) {
   });
 
   const submitHandler = async (data: TAddKitchenSchema) => {
+    if (!auth) {
+      toast.error("Firebase auth is not configured");
+      return;
+    }
+
     const session = auth.currentUser;
 
     if (!session) {
@@ -158,7 +163,7 @@ export default function AddKitchenForm({ user }: TAddKitchenForm) {
                   </label>
                   <input
                     type="tel"
-                    {...register("phoneNumber")}
+                    {...register("phoneNumber", { valueAsNumber: true })}
                     className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
                   />
                   {errors.phoneNumber && (

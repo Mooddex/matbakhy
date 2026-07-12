@@ -17,6 +17,7 @@ const ProfilePage = async ({
     user = await getUser(id);
   } catch (error) {
     console.error("Failed to fetch user:", error);
+    alert("Failed to fetch user");
   }
 
   if (!user) {

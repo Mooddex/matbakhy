@@ -1,31 +1,40 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db/db";
-import User from "@/lib/models/Users";
+import { usersCollection, serializeUserDoc } from "@/lib/firebase/firestore";
 
 export async function POST(req: Request) {
   try {
-    if (!process.env.MONGO_URI) {
-      throw new Error("MONGO_URI is not defined in environment variables");
+    const users = usersCollection();
+    if (!users) {
+      return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
     }
-    await connectDB();
+
     const { uid, email, name, avatar } = await req.json();
+    const snapshot = await users.where("firebaseUid", "==", uid).limit(1).get();
 
-    // Check if user already exists
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      // Create new user with Firebase info
-      user = await User.create({
+    let userDoc;
+    if (snapshot.empty) {
+      const docRef = await users.add({
         name,
         email,
         avatar,
         provider: "google",
-        isActive: true,
         firebaseUid: uid,
+        username: email?.split("@")[0] || "",
+        stats: {
+          totalKitchens: 0,
+          totalViews: 0,
+          rating: 0,
+          completedOrders: 0,
+        },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       });
+      userDoc = await docRef.get();
+    } else {
+      userDoc = snapshot.docs[0];
     }
 
-    return NextResponse.json(user);
+    return NextResponse.json(serializeUserDoc(userDoc));
   } catch (error) {
     console.error("Error in google auth route:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

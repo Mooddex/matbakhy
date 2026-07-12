@@ -1,40 +1,71 @@
-//* Import firebase_app from config.js, signInWithEmailAndPassword, and getAuth from firebase/auth
-import { createUser } from "@/app/actions/user";
-import {auth} from "../firebase-config";
-import { User } from "@/lib/types/User";
-
+import { auth } from "../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
-
-//* Sign up (create user)
+import { FirebaseError } from "firebase/app";
 export default async function signUp(email: string, password: string, name: string) {
-  let result = null,
-    error = null;
-  try {
-    //* Create user with email and password (sign up)
-    result = await createUserWithEmailAndPassword(auth, email, password);
-    // send user data to mongodb 
-    const firebaseUser = result.user;
-    const user: User = {
-      firebaseUid: firebaseUser.uid, // ✅ Changed from 'id'
-      email: firebaseUser.email || '',
-      name: name,
-      username: firebaseUser.email?.split('@')[0] || '', // Default username from email
-      avatar: firebaseUser.photoURL || '',
-      phone: firebaseUser.phoneNumber || '',
-      location: '',
-      bio: '',
-        provider: 'email', // ✅ Added this
-      // ✅ Removed joinedDate - schema handles this with timestamps
-      stats: { totalKitchens: 0, totalViews: 0, rating: 0, completedOrders: 0 },
-    };
-    const response = await createUser(user);
-    console.log("User saved to MongoDB:", response);
-    
-  } catch (e) {
-    error = e;
-    console.error("Signup error:", e);
+  if (!auth) {
+    return { result: null, error: new Error("Firebase auth is not configured") };
   }
 
-  return { result, error };
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const firebaseUser = result.user;
+
+    // Create the server session cookie
+    try {
+      const idToken = await firebaseUser.getIdToken();
+      await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+    } catch (sessionError) {
+      console.warn("Session cookie creation failed:", sessionError);
+    }
+
+    // Sync profile to Firestore
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firebaseUid: firebaseUser.uid,
+          email: firebaseUser.email || "",
+          name,
+          username: firebaseUser.email?.split("@")[0] || "",
+          avatar: firebaseUser.photoURL || "",
+          phone: firebaseUser.phoneNumber || "",
+          location: "",
+          bio: "",
+          provider: "email",
+          stats: { totalKitchens: 0, totalViews: 0, rating: 0, completedOrders: 0 },
+        }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Firestore profile sync failed:", res.status, text);
+        return { result, error: new Error(`Account created, but profile save failed: ${text}`) };
+      }
+    } catch (syncError) {
+      console.error("Profile sync to Firestore failed:", syncError);
+      return { result, error: new Error("Account created, but profile save failed") };
+    }
+
+    return { result, error: null };
+  } catch (error) {
+    console.error("Signup error:", error);
+
+    let message = "Sign up failed";
+    if (error instanceof FirebaseError) {
+      // e.g. "Firebase: Password should be at least 6 characters (auth/weak-password)."
+      message = error.message
+        .replace("Firebase: ", "")
+        .replace(/\s*\(auth\/[^)]+\)\.?/, "")
+        .trim();
+    } else if (error instanceof Error) {
+      message = error.message;
+    }
+
+    return { result: null, error: new Error(message) };
+  }
 }

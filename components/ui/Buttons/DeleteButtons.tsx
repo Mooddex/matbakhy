@@ -20,6 +20,11 @@ export default function DeleteButtons({ id, kitchenName, userId }: DeleteButtons
   const [currentUid, setCurrentUid] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!auth) {
+      setCurrentUid(null);
+      return;
+    }
+
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUid(user?.uid ?? null);
     });
@@ -29,17 +34,19 @@ export default function DeleteButtons({ id, kitchenName, userId }: DeleteButtons
   const isOwner = currentUid === userId;
 
   const handleDeleteKitchen = async (id: string) => {
-  try {
-    const token = await auth.currentUser?.getIdToken();
-    if (!token) return false;
+    try {
+      if (!auth || !auth.currentUser) return false;
 
-    const res = await deleteKitchenAction(id, token); // ✅ pass token
-    return res.success;
-  } catch (error) {
-    console.error('Delete error:', error);
-    return false;
-  }
-};
+      const token = await auth.currentUser.getIdToken();
+      if (!token) return false;
+
+      const res = await deleteKitchenAction(id, token);
+      return res.success;
+    } catch (error) {
+      console.error('Delete error:', error);
+      return false;
+    }
+  };
 
   const handleDelete = async (kitchenName: string) => {
     toast.info(

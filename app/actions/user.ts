@@ -1,15 +1,24 @@
 import { User } from "@/lib/types/User";
 
 // -------------------------------
-// Base URL for server-side fetch
+// Base URL for fetching the local API
 // -------------------------------
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const getBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
+  return "";
+};
+
+const buildUrl = (path: string) => {
+  const baseUrl = getBaseUrl();
+  return baseUrl ? `${baseUrl}${path}` : path;
+};
 
 // -------------------------------
 // Create a user
 // -------------------------------
 export const createUser = async (data: User) => {
-  const res = await fetch(`${baseUrl}/api/users`, {
+  const res = await fetch(buildUrl("/api/users"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -27,7 +36,7 @@ export const createUser = async (data: User) => {
 // Get all users
 // -------------------------------
 export const getUsers = async () => {
-  const res = await fetch(`${baseUrl}/api/users`, { cache: "no-store" });
+  const res = await fetch(buildUrl("/api/users"), { cache: "no-store" });
 
   if (!res.ok) {
     console.error("Get users failed:", res.status, await res.text());
@@ -41,10 +50,11 @@ export const getUsers = async () => {
 // Get single user by firebaseUid
 // -------------------------------
 export const getUser = async (id: string) => {
-  const res = await fetch(`${baseUrl}/api/users/${id}`, { cache: "no-store" });
+  const res = await fetch(buildUrl(`/api/users/${id}`), { cache: "no-store" });
 
   if (!res.ok) {
     console.error("Fetch user failed:", res.status, await res.text());
+    alert("Failed to fetch user");
     throw new Error("User not found");
   }
 
@@ -55,7 +65,7 @@ export const getUser = async (id: string) => {
 // Update user by firebaseUid
 // -------------------------------
 export const updateUser = async (id: string, data: Partial<User>) => {
-  const res = await fetch(`${baseUrl}/api/users/${id}`, {
+  const res = await fetch(buildUrl(`/api/users/${id}`), {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -79,7 +89,7 @@ export const updateUser = async (id: string, data: Partial<User>) => {
 // Delete user
 // -------------------------------
 export const deleteUser = async (id: string) => {
-  const res = await fetch(`${baseUrl}/api/users/${id}`, { method: "DELETE" });
+  const res = await fetch(buildUrl(`/api/users/${id}`), { method: "DELETE" });
 
   if (!res.ok) {
     console.error("Delete user failed:", res.status, await res.text());

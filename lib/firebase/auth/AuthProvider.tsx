@@ -26,18 +26,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 
   useEffect(() => {
+    if (!auth) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
-          // Fetch the user from your database to get the _id.
-          // Ensure you have an API route that returns the user by uid.
           const res = await fetch(`/api/users/${firebaseUser.uid}`);
           const data = await res.json();
-          
+
           const userWithId = Object.assign(firebaseUser, { _id: data._id });
           setUser(userWithId);
         } catch (error) {
-          console.error("Error fetching MongoDB user:", error);
+          console.error("Error fetching Firestore user:", error);
           setUser(firebaseUser);
         }
       } else {

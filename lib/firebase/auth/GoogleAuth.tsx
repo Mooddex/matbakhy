@@ -6,7 +6,7 @@ import { auth } from "@/lib/firebase/firebase-config";
 import { User } from "@/lib/types/User";
 
 interface GoogleAuthProps {
-  isLoading?: boolean; // optional, parent can control
+  isLoading?: boolean;
   onSuccess?: (dbUser: User) => void;
   onError?: (error: unknown) => void;
 }
@@ -14,14 +14,31 @@ interface GoogleAuthProps {
 const GoogleAuth = ({ isLoading: parentLoading, onSuccess, onError }: GoogleAuthProps) => {
   const [localLoading, setLocalLoading] = useState(false);
 
-  const isLoading = parentLoading ?? localLoading; // use parent prop if passed, else local state
+  const isLoading = parentLoading ?? localLoading;
 
   const handleGoogleSignIn = async () => {
+    if (!auth) {
+      if (onError) onError(new Error("Firebase auth is not configured"));
+      return;
+    }
+
     setLocalLoading(true);
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+
+      // Create the server session cookie
+      const idToken = await user.getIdToken();
+      const sessionRes = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!sessionRes.ok) {
+        throw new Error("Failed to create session");
+      }
 
       const res = await fetch("/api/users/google", {
         method: "POST",
@@ -35,7 +52,8 @@ const GoogleAuth = ({ isLoading: parentLoading, onSuccess, onError }: GoogleAuth
       });
 
       if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
+        const text = await res.text();
+        throw new Error(`Server error: ${res.status} ${text}`);
       }
 
       const dbUser = await res.json();

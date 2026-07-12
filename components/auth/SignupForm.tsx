@@ -23,13 +23,16 @@ export default function SignUpForm() {
     const { result, error } = await signUp(email, password, name);
 
     if (error) {
-      toast.error("Sign up failed, please try again!");
-      return console.log(error);
+      toast.error(error.message || "Sign Up Failed!");
+  console.error(error);
+  return;
     }
 
     //* else successful
     console.log(result);
-    toast.success("Sign up successful!");
+    toast.success("Signed Up Successfully!");
+    router.refresh();
+
     return router.push("/");
   };
   return (

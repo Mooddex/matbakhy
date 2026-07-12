@@ -1,36 +1,34 @@
 // types/Kitchens.ts
 
 /**
- * Main Kitchen interface representing a document from MongoDB
- * - _id: MongoDB ObjectId as string
- * - userId: Firebase UID of the kitchen maker
+ * Kitchen document from Firestore
+ * - _id / id: Firestore document ID
+ * - userId: Firebase Auth UID of the kitchen maker
+ * - imageUrl: Cloudinary secure_url stored in Firestore
  */
 export interface Kitchen {
-  _id: string; // MongoDB ObjectId
+  _id: string;
+  id: string;
   name: string;
   maker: string;
   price: number;
-  phoneNumber: number ;
+  phoneNumber: number;
   description: string;
   location: string;
   imageUrl: string;
-  userId: string; // Firebase UID of the kitchen maker
-  createdAt: Date;
-  updatedAt: Date;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-/**
- * Props interface for Kitchen card component
- * Subset of Kitchen interface used for rendering UI
- */
 export interface KitchenCardProps {
-  _id?: string; // MongoDB ObjectId
+  _id?: string;
   name: string;
   maker: string;
-  phoneNumber: number; // Must be number to match Kitchen model
+  phoneNumber: number;
   imageUrl?: string;
   description: string;
   price: number;
   location: string;
-  userId?: string; // Firebase UID
+  userId?: string;
 }

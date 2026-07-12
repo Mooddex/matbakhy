@@ -9,6 +9,7 @@ import { updateKitchenAction } from "@/app/actions/kitchen";
 import { useRouter } from "next/navigation";
 import { CldUploadButton } from "next-cloudinary";
 import { Upload, Loader2 } from "lucide-react";
+import { auth } from "@/lib/firebase/firebase-config";
 
 interface EditProductFormProps {
   kitchen: Kitchen;
@@ -28,9 +29,21 @@ export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
   });
 
   const submitHandler = async (data: TEditKitchenSchema) => {
-    
+    if (!auth) {
+      toast.error("Firebase auth is not configured");
+      return;
+    }
+
+    const session = auth.currentUser;
+    if (!session) {
+      toast.error("You must be logged in");
+      return;
+    }
+
+    const token = await session.getIdToken();
+
     try {
-      const res = await updateKitchenAction(kitchen._id, data);
+      const res = await updateKitchenAction(kitchen._id, data, token);
       if (res.success) {
         toast.success(`${kitchen.name} updated successfully`, {
           autoClose: 3000,
@@ -111,8 +124,8 @@ export default function EditKitchenForm({ kitchen }: EditProductFormProps) {
           Phone Number
         </label>
         <input
-          type="string"
-          {...register("phoneNumber")}
+          type="tel"
+          {...register("phoneNumber", { valueAsNumber: true })}
           className="w-full rounded-lg border border-violet-700 bg-violet-900 p-2.5 text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-600 focus:outline-none"
         />
         {errors.phoneNumber && (

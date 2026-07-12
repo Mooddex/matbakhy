@@ -1,19 +1,18 @@
-// components/kitchen/heroKitchens.tsx
 import KitchenCard from "./KitchenCard";
 import { Kitchen } from "@/lib/types/Kitchens";
-
-const API_URL = process.env.PlaceHolderURL;
+import { kitchensCollection, serializeKitchenDoc } from "@/lib/firebase/firestore";
 
 export default async function HeroKitchens() {
-  // Fetch data directly inside the component
   const fetchHeroKitchens = async () => {
     try {
-      const res = await fetch(`${API_URL}`);
-      if (!res.ok) throw new Error("Failed to load kitchens");
-      return await res.json();
+      const kitchens = kitchensCollection();
+      if (!kitchens) return [] as Kitchen[];
+
+      const snapshot = await kitchens.orderBy("createdAt", "desc").limit(6).get();
+      return snapshot.docs.map((doc) => serializeKitchenDoc(doc) as Kitchen);
     } catch (error) {
       console.error(error);
-      return []; // Return empty array on error to prevent layout shift
+      return [] as Kitchen[];
     }
   };
 
@@ -23,10 +22,10 @@ export default async function HeroKitchens() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 m-4">
       {data.length > 0 ? (
         data.map((kitchen: Kitchen) => (
-          <KitchenCard key={kitchen._id} {...kitchen} />
+          <KitchenCard key={kitchen._id || kitchen.id} {...kitchen} />
         ))
       ) : (
-        <p className="col-span-full text-gray-500 text-center">Loading kitchens...</p>
+        <p className="col-span-full text-gray-500 text-center">No kitchens available right now.</p>
       )}
     </div>
   );

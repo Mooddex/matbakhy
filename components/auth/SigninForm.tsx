@@ -20,13 +20,14 @@ export function SignInForm() {
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      toast.error("Sign In failed!");
+      toast.error("Signed In Failed!");
       return console.log(error);
     }
 
-    toast.success("Sign In successful!");
+    toast.success("Signed In Successfully!");
     console.log(result);
-    return router.push("/");
+    router.push("/");
+    return  router.refresh();
   };
 
   return (

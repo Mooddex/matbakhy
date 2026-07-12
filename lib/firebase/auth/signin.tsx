@@ -1,20 +1,28 @@
-//* Import firebase_app from config.js, signInWithEmailAndPassword, and getAuth from firebase/auth
-import {auth} from "../firebase-config";
-
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
 
-
-//* Sign in (authenticate user)
 export default async function signIn(email: string, password: string) {
-  let result = null,
-    error = null;
-  try {
-    //* Sign in user with email and password (sign in)
-    result = await signInWithEmailAndPassword(auth, email, password);
-  } catch (e) {
-    //! Handle errors here
-    error = e;
+  if (!auth) {
+    return { result: null, error: new Error("Firebase auth is not configured") };
   }
 
-  return { result, error };
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+
+    // Create the server session cookie
+    try {
+      const idToken = await result.user.getIdToken();
+      await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+    } catch (sessionError) {
+      console.warn("Session cookie creation failed:", sessionError);
+    }
+
+    return { result, error: null };
+  } catch (error) {
+    return { result: null, error };
+  }
 }

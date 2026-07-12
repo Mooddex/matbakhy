@@ -14,6 +14,11 @@ export default function EditButton({ kitchenId, userId }: EditButtonProps) {
   const [currentUid, setCurrentUid] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!auth) {
+      setCurrentUid(null);
+      return;
+    }
+
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUid(user?.uid ?? null);
     });

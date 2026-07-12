@@ -1,118 +1,83 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db/db";
-import User from "@/lib/models/Users";
-import mongoose from "mongoose";
+import { usersCollection, serializeUserDoc } from "@/lib/firebase/firestore";
 
-/**
- * GET user by Firebase UID
- * /api/users/:firebaseUid
- */
 export async function GET(
   _: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await connectDB();
-
-    // Await params in Next.js 15+
-    const { id } = await params;
-
-    const user = await User.findOne({
-      firebaseUid: id,
-    }).select("-password");
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+    const users = usersCollection();
+    if (!users) {
+      return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
     }
 
-    return NextResponse.json(user);
+    const { id } = await params;
+    const snapshot = await users.where("firebaseUid", "==", id).limit(1).get();
+
+    if (snapshot.empty) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(serializeUserDoc(snapshot.docs[0]));
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
-/**
- * PATCH user by Mongo ObjectId
- * /api/users/:id
- */
 export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await connectDB();
-
-    // firebase UID is passed in the URL as the id parameter
-    const { id: firebaseUid } = await params;
-
-    // we update by firebaseUid rather than Mongo ObjectId
-    const body = await req.json();
-
-    const user = await User.findOneAndUpdate(
-      { firebaseUid },
-      body,
-      { new: true }
-    ).select("-password");
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+    const users = usersCollection();
+    if (!users) {
+      return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
     }
 
-    return NextResponse.json(user);
+    const { id: firebaseUid } = await params;
+    const body = await req.json();
+    const snapshot = await users.where("firebaseUid", "==", firebaseUid).limit(1).get();
+
+    if (snapshot.empty) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const docRef = snapshot.docs[0].ref;
+    await docRef.update({
+      ...body,
+      updatedAt: new Date().toISOString(),
+    });
+
+    const updatedDoc = await docRef.get();
+    return NextResponse.json(serializeUserDoc(updatedDoc));
   } catch (error) {
     console.error("PATCH /api/users error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
-/**
- * DELETE user by Mongo ObjectId
- * /api/users/:id
- */
 export async function DELETE(
   _: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await connectDB();
+    const users = usersCollection();
+    if (!users) {
+      return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
+    }
 
     const { id } = await params;
+    const snapshot = await users.where("firebaseUid", "==", id).limit(1).get();
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json(
-        { error: "Invalid user id" },
-        { status: 400 }
-      );
+    if (snapshot.empty) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const user = await User.findByIdAndDelete(id);
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
-    }
-
+    await snapshot.docs[0].ref.delete();
     return NextResponse.json({ message: "User deleted" });
   } catch (error) {
     console.error("DELETE /api/users error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
